@@ -1,0 +1,78 @@
+
+<div class="adminme">
+    <form method="post" class="form-x" action="#">
+        <div class="form-group">
+            <div class="label"><label for="name">用户账号</label></div>
+            <div class="field">
+                <input type="text" class="input" id="name" name="name" size="50" placeholder="用户名称" data-validate="required:请填写新用户名称" value="usr.name" disabled="disabled" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="label"><label for="pwd">用户密码</label></div>
+            <div class="field">
+                <input type="password" class="input" id="pwd" name="pwd" size="50" placeholder="用户密码，位数不小于 6" data-validate="required:请填写密码,length#>=6:密码长度不符合要求 (>6)" value="usr.pwd" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="label"><label for="age">用户姓名</label></div>
+            <div class="field">
+                <input type="text" class="input" id="age" name="age" size="50" placeholder="用户年龄" data-validate="required:请填写用户年龄,number:用户年龄必须为整数" value="usr.age" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="label"><label for="age">用户年龄</label></div>
+            <div class="field">
+                <input type="text" class="input" id="age" name="age" size="50" placeholder="用户年龄" data-validate="required:请填写用户年龄,number:用户年龄必须为整数" value="usr.age" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="label"><label>用户性别</label></div>
+            <div class="field">
+                <div class="button-group radio"> 
+                    <label class="button active">
+                        <input name="sex" value="1" checked type="radio"> 男
+                    </label> 
+                    <label class="button ">
+                        <input name="sex" value="2" type="radio"> 女
+                    </label> 
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="label"><label for="phone">联系方式</label></div>
+            <div class="field">
+                <input type="text" class="input" id="phone" name="phone" size="50" placeholder="联系方式" data-validate="required:请填写用户联系方式,number:请填写正确的联系方式" value="usr.phone" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="label"><label for="email">邮件地址</label></div>
+            <div class="field">
+                <input type="text" class="input" id="email" name="email" size="50" placeholder="邮件地址" data-validate="required:请填写邮件地址,email:请填写正确的邮件地址" value="usr.email" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="label"><label for="address">家庭住址</label></div>
+            <div class="field">
+                <input type="text" class="input" id="address" name="address" size="50" placeholder="用户住址" data-validate="required:请填写用户住址，建议在20字以内。"  value="usr.address" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="label"><label for="usr_lvl">专业方向</label></div>
+            <div class="field">
+                <select class="input" name="usr_lvl" id="usr_lvl" data-validate="required:请选择用户组">
+                    <option value="">请选择</option> 
+                    <!-- <volist name="lvl_list" id="index"> -->
+                    <option value="index.id" >index.name</option>
+                    <!-- </volist> -->
+                </select>
+            </div>
+        </div> 
+        
+        <div class="form-button">
+            <input type="hidden" name="usr_id" value="usr.id"/> 
+            <button class="button bg-main" type="submit">提交</button>
+            <button class="button bg-yellow form-reset " type="reset">后退</button>  
+        </div>                
+    </form>   
+    <p class="text-right text-gray">基于<a class="text-gray" target="_blank" href="#">郑少卓</a>构建   </p>
+</div>

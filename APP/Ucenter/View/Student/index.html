@@ -1,0 +1,65 @@
+<div class="adminme">
+    <div class="line-big">
+        <div class="xm3">
+            <div class="panel border-back">
+                <div class="panel-body text-center">
+                    <img src="__IMG__/sex_a.jpg" width="120" class="radius-circle" /><br />
+                    admin
+                </div>
+                <div class="panel-foot bg-back border-back">您好，Admin，这是您第 12 次登录，上次登录为 2015-03-04。</div>
+            </div>
+            <br />
+            <div class="panel">
+                <div class="panel-head"><strong>站点统计</strong></div>
+                <ul class="list-group">
+                    <li><span class="float-right badge bg-red">1</span><span class="icon-user"></span> 用户</li>
+                    <li><span class="float-right badge bg-main">1</span><span class="icon-file"></span> 文章</li>
+                    <li><span class="float-right badge bg-main">1</span><span class="icon-shopping-cart"></span> 软件</li>
+                    <li><span class="float-right badge bg-main">1</span><span class="icon-file-text"></span> 图片</li>
+                    <li><span class="float-right badge bg-main">1</span><span class="icon-database"></span> 附件</li>
+                </ul>
+            </div>
+            <br />
+        </div>
+        <div class="xm9">
+            <div class="alert alert-yellow"><span class="close"></span><strong>注意：</strong>您有5条未读信息，<a href="#">点击查看</a>。</div>
+            <div class="alert">
+                <h4>学生课题管理系统</h4>
+                <p class="text-gray padding-top">课题管理系统，动态网站技术<br/>汇集学生信息、课题信息以及其他与之相关的数据，方便学生对数据实时进行管理</p>
+                <a target="_blank" class="button bg-dot icon-user" href="{:U('Student/person')}"> 个人管理</a> 
+                <a target="_blank" class="button bg-main icon-file-text" href="{:U('Student/bslist')}"> 毕设管理</a> 
+            </div>
+            <div class="panel">
+                <div class="panel-head"><strong>系统信息</strong></div>
+                <table class="table">
+                    <tr><th colspan="2">服务器信息</th><th colspan="2">系统信息</th></tr>
+                    <tr>
+                        <td width="120" align="right">操作系统：</td>
+                        <td>{$system['os']}</td>
+                        <td width="120" align="right">Web服务器：</td>
+                        <td>{$system['web_os']}</td>
+                    </tr>
+                    <tr>
+                        <td align="right">主页：</td>
+                        <td><a href="#" target="_blank">{$system['domainname']}</a></td>
+                        <td align="right">IP：</td>
+                        <td>{$system['ip']}</td>
+                    </tr>
+                    <tr>
+                        <td align="right">程序语言：</td>
+                        <td>{$system['language']}</td>
+                        <td align="right">语言版本：</td>
+                        <td><a href="#" target="_blank">{$system['php_version']}</a></td>
+                    </tr>
+                    <tr>
+                        <td align="right">数据类型：</td>
+                        <td>{$system['db_os']}</td>
+                        <td align="right">数据库版本：</td>
+                        <td>{$system['db_version']}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <p class="text-right text-gray">基于<a class="text-gray" target="_blank" href="#">郑少卓</a>构建   </p>
+</div>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <title>拼图前端框架HTML模版</title>
+    <meta name="keywords" content="关键词" />
+    <meta name="description" content="描述" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="__CSS__/pintuer.css">
+    <link rel="stylesheet" href="__CSS__/admin.css">
+    <script src="__JS__/jquery.js"></script>
+    <script src="__JS__/pintuer.js"></script>
+    <script src="__JS__/respond.js"></script>
+
+    <style>
+        body{padding-top: 48px;}
+        .bg22{background-color: #222222;}
+        header > .layout_top{height: 48px; z-index: 9999;}
+        .layout_top .nav-p{color: #bcbcbc; display: inline-block; float: right; margin-top: 20px; margin-right: 60px;}
+        .layout_top .nav-p a{color: #bcbcbc;}
+        .layout_top .nav-p a:hover{color: #ffffff;}
+        
+        section > .line .contBox{min-height: 600px;}
+        .contBox .lls{height: 50px; line-height: 50px; width: 100%; display: block; color: #9C9895; text-indent: 20px; border-top: 1px solid #080808;}
+        .contBox .lls:hover, .contBox .active{background-color: #080808; color: #ffffff;}
+        .contBox .bread-me{}
+        .contBox .adminme{padding: 20px;}
+        section .lineme{min-width: 100%;}
+        .lineme .xm2me{width: 16.6667%; position: absolute; top: 48px; left: -16.6667%;}
+        .lineme .xm10me{width: 80%; min-width: 800px; margin: 0px auto; padding: 0px 40px;}
+    </style>
+
+</head>
+<body>
+    <header>
+        <div class="layout layout_top bg22 fixed-top">
+            <p class="nav-p">
+                欢迎您，adfafafga
+                &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                <a href="{:U('Student/loginout')}">注销</a>
+                &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                <a href="{:U('Student/index')}">首页</a>
+            </p>
+        </div>
+    </header>
+
+    <section>
+        <div class="lineme">
+            <div class="xm2me bg22 contBox" style="height:100%;">
+                <aside>
+                <ul class="nav">
+                    <li><a href="{:U('Student/index')}" class="lls">登录信息</a></li>
+                    <li><a href="{:U('Student/person')}" class="lls">个人管理</a></li>
+                    <li><a href="{:U('Student/bslist')}" class="lls">毕设列表</a></li>
+                    <li><a href="{:U('Student/detail')}" class="lls">毕设详情</a></li>
+                    <li><a href="{:U('Student/msg')}" class="lls">消息管理</a></li>
+                    <li><a href="{:U('Student/plan')}" class="lls">毕设进度</a></li>
+                    <li><a href="{:U('Student/choose')}" class="lls active">毕设选题</a></li>
+                </ul>
+                </aside>
+            </div>
+            <div class="xm10me contBox">
+                <div class="bread-me">
+                    <ul class="bread bg">
+                      <li><a href="{:U('Student/index')}" class="icon-home"> 首页</a></li>
+                      <li>{$title}</li>
+                    </ul>
+                </div>
+                <div class="admin-me">
+                    <div class="panel admin-panel">
+                        <div class="panel-head">
+                            <form action="#" class="form-inline">
+                                <div class="form-group">
+                                    <div class="label"><label for="artjj">课题检索</label></div>
+                                    <div class="field">
+                                        <input type="text" class="input" id="name" name="name" size="12" placeholder="用户名称" />
+                                    </div>
+                                </div>
+                                &nbsp;
+                                <div class="form-group">
+                                    <div class="label"><label for="artjj">关键字</label></div>
+                                    <div class="field">
+                                        <input type="text" class="input" id="name" name="name" size="12" placeholder="用户名称" />
+                                    </div>
+                                </div>
+                                &nbsp;
+                                <div class="form-group">
+                                    <div class="label"><label for="column">指导教师</label></div>
+                                    <div class="field">
+                                        <select class="input" name="column" id="column">
+                                            <option value="">请选择</option> 
+                                            <volist name="column_list" id="index">
+                                            <option value="{$index.id}">{$index.title}</option>
+                                            <volist name="index.son_list" id="index">
+                                            <option value="{$index.id}">└─{$index.title}</option>
+                                            </volist>
+                                            </volist>
+                                        </select>
+                                    </div>
+                                </div>
+                                &nbsp;
+                                <div class="form-group">
+                                    <div class="label"><label for="column">课题状态</label></div>
+                                    <div class="field">
+                                        <select class="input" name="column" id="column">
+                                            <option value="">请选择</option> 
+                                            <volist name="column_list" id="index">
+                                            <option value="{$index.id}">{$index.title}</option>
+                                            <volist name="index.son_list" id="index">
+                                            <option value="{$index.id}">└─{$index.title}</option>
+                                            </volist>
+                                            </volist>
+                                        </select>
+                                    </div>
+                                </div>
+                                &nbsp;
+                                &nbsp;
+                                <div class="form-button">
+                                    <button class="button bg-green" type="submit">检索</button>
+                                </div>
+                            </form>
+                        </div>
+                        <br />
+                        <br />
+                        <table class="table table-hover table-striped table-bordered">
+                            <tr>
+                                <th width="80">用户编号</th>
+                                <th width="110">用户名称</th>
+                                <th width="110">用户性别</th>
+                                <th width="120">联系方式</th>
+                                <th width="*">邮件地址</th>
+                                <th width="140">用户组</th>
+                                <th width="100">上次登陆</th>
+                                <th width="140">操作</th>
+                            </tr>
+                            <!-- <volist name="usr_list" id="index"> -->
+                            <tr>
+                                <td>index.id</td>
+                                <td>index.name</td>
+                                <td>
+                                    <?php echo $index['sex'] == 1 ? '男' : '女'; ?>
+                                </td>
+                                <td>index.phone</td>
+                                <td>index.email</td>
+                                <td>index.levelname</td>
+                                <td>index.lasttime</td>
+                                <td>
+                                    <input type="hidden" name="id" value="{$index.id}"/>
+                                    <a class="button border-yellow button-little" name="check" href="#">查看</a> 
+                                    <a class="button border-blue button-little" name="modify" href="#">修改</a>
+                                    <a class="button border-green button-little dialogs" name="delete" href="#" data-toggle="click" data-target="#mydialog" data-mask="1" data-width="30%">删除</a>
+                                </td>
+                            </tr>
+                            <!-- </volist> -->
+                            </table>
+                        <div class="panel-foot text-center">
+                            page
+                        </div>
+                    </div>
+                <p class="text-right text-gray">基于<a class="text-gray" target="_blank" href="#">郑少卓</a>构建   </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        
+    </footer>
+
+    <script>
+        $(function(){
+
+            $(document).mousemove(function(e){
+                var screen_X = $(window).width();
+                var screen_Y = $(window).height();
+
+                var mouse_x = e.pageX;
+                if(mouse_x >= 0 && mouse_x <= screen_X * 0.166667){
+                    $(".xm2me").css('left', 0);
+                }else{
+                    $(".xm2me").css('left', -screen_X * 0.166667);
+                }
+                // console.log(e.pageX + ":" + e.pageY);
+            });
+        });
+    </script>
+</body>
+</html>
