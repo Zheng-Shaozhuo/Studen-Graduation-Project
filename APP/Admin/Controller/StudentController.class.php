@@ -10,18 +10,45 @@
          *  2015年3月8日22:14:22
          *  后台管理中心-新增教师
          */
-        public function index(){
+        public function index($stuCard = null, $stuName = null, $stuSex = null, $stuMajor = null){
             $titles = array();
             $titles['prt'] = "学生";
             $titles['prtLink'] = CONTROLLER_NAME;
             $titles['son'] = "学生列表";
             $this->assign("titles", $titles);
 
-            $obj = M('student');
-            $usrList = $obj->join('left join major on student.stuMajor = major.majorId')->field('stuId, stuCard, stuRealName, stuSex, stuPhone, major.majorName')->order('stuCard asc')->where(array('state' => 1))->select();
-            $this->assign('usrList', $usrList);
+            $obj = M("major");
+            $majorList = $obj->select();
+            $this->assign("majorList", $majorList);
 
-            $this->display();
+            $where = array();
+            $where['state'] = 1;
+            $seachData['stuCard'] = $stuCard;
+            if(isset($stuCard) && !empty($stuCard)){
+                $where['stuCard'] = array("like", "%{$stuCard}%");
+            }
+            $seachData['stuName'] = $stuName;
+            if(isset($stuName) && !empty($stuName)){
+                $where['stuRealName'] = $stuName;
+            }
+            $seachData['stuSex'] = $stuSex;
+            if(isset($stuSex) && !empty($stuSex)){
+                $where['stuSex'] = $stuSex;
+            }
+            $seachData['stuMajor'] = $stuMajor;
+            if(isset($stuMajor) && !empty($stuMajor)){
+                $where['major.majorId'] = $stuMajor;
+            }
+            $this->assign("seachData", $seachData);
+            
+            $obj    = M('student'); // 实例化User对象
+            $count  = $obj->where($where)->Count();// 查询满足要求的总记录数
+            $Page   = new \Think\Page($count,10);// 实例化分页类 传入总记录数和每页显示的记录数(25)
+            $show   = $Page->show();// 分页显示输出// 进行分页数据查询 注意limit方法的参数要使用Page类的属性
+            $usrList = $obj->join('left join major on student.stuMajor = major.majorId')->field('stuId, stuCard, stuRealName, stuSex, stuPhone, major.majorName')->order('stuCard asc')->where($where)->limit($Page->firstRow.','.$Page->listRows)->select();
+            $this->assign('usrList', $usrList);// 赋值数据集
+            $this->assign('page',$show);// 赋值分页输出
+            $this->display(); // 输出模板
         }
 
         /*
