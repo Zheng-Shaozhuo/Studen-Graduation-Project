@@ -1,48 +1,142 @@
 
 <div class="adminme">
-        <form method="post">
-            <div class="panel admin-panel">
-                <div class="panel-head"><strong>内容列表</strong></div>
-                <div class="padding border-bottom">
-                    <input type="button" class="button button-small border-green" value="新增消息" onclick="javascript:window.location.href='#';" />
-                    <input type="button" class="button button-small border-blue" value="回收站" onclick="javascript:window.location.href='#'" />
-                </div>
-                <table class="table table-hover">
-                    <tr>
-                        <th width="80">用户编号</th>
-                        <th width="110">用户名称</th>
-                        <th width="110">用户性别</th>
-                        <th width="120">联系方式</th>
-                        <th width="*">邮件地址</th>
-                        <th width="140">用户组</th>
-                        <th width="100">上次登陆</th>
-                        <th width="140">操作</th>
-                    </tr>
-                    <!-- <volist name="usr_list" id="index"> -->
-                    <tr>
-                        <td>index.id</td>
-                        <td>index.name</td>
-                        <td>
-                            <?php echo $index['sex'] == 1 ? '男' : '女'; ?>
-                        </td>
-                        <td>index.phone</td>
-                        <td>index.email</td>
-                        <td>index.levelname</td>
-                        <td>index.lasttime</td>
-                        <td>
-                            <input type="hidden" name="id" value="{$index.id}"/>
-                            <a class="button border-yellow button-little" name="check" href="#">查看</a> 
-                            <a class="button border-blue button-little" name="modify" href="#">修改</a>
-                            <a class="button border-green button-little dialogs" name="delete" href="#" data-toggle="click" data-target="#mydialog" data-mask="1" data-width="30%">删除</a>
-                        </td>
-                    </tr>
-                    <!-- </volist> -->
-                    </table>
-                <div class="panel-foot text-center">
-                    page
-                </div>
-            </div>
-        </form>  
-        <p class="text-right text-gray">基于<a class="text-gray" target="_blank" href="#">郑少卓</a>构建   </p>
+    <div class="panel admin-panel">
+        <div class="panel-head"><strong>内容列表</strong></div>
+        <div class="padding border-bottom">
+            <a class="button button-small border-green dialogs disabled" <?php echo count($ff) > 0 ? '' : 'disabled="disabled"';?> name="addmsg" href="#" data-toggle="click" data-target="#mymsgdialog" data-mask="1" data-width="50%">新增消息</a>
+        </div>
+        <table class="table table-hover">
+            <tr>
+                <th width="60">编号</th>
+                <th width="140">信息时间</th>
+                <th width="120">发信人</th>
+                <th width="120">收信人</th>
+                <th width="*">信息内容</th>
+                <th width="100">操作</th>
+            </tr>
+            <volist name="adminList" id="index">
+            <tr class="red">
+                <td>{$index.msgId}</td>
+                <td>{$index.createTime|date="m-d i:m:s",###}</td>
+                <td>管理员</td>
+                <td>所有教师</td>
+                <td>{$index.msgContent}</td>
+                <td>
+                    <!-- <input type="hidden" name="id" value="{$index.msgId}"/> -->
+                    <!-- <a class="button border-red button-little dialogs" name="del" href="#" data-toggle="click" data-target="#mydeldialog" data-mask="1" data-width="30%">删除</a> -->
+                    无操作
+                </td>
+            </tr>
+            </volist>
+            <!-- 楼上是管理员的消息 -->
+            <volist name="List" id="index">
+            <tr>
+                <td>{$index.msgId}</td>
+                <td>{$index.createTime|date="m-d i:m:s",###}</td>
+                <td>
+                    <?php
+                        if($index['state'] == -1){
+                            echo $usrName;
+                        }else{
+                            foreach($ff as $v){
+                                if($v['stuId'] == $index['msgFromId']){
+                                    $t = $v['stuRealName'];
+                                }
+                            }
+                            echo $t;
+                        }
+                    ?>
+                </td>
+                <td>
+                    <?php
+                        if($index['state'] == 1){
+                            echo $usrName;
+                        }else{
+                            foreach($ff as $v){
+                                if($v['stuId'] == $index['msgAccessId']){
+                                    $t = $v['stuRealName'];
+                                }
+                            }
+                            echo $t;
+                        }
+                    ?>
+                </td>
+                <td>{$index.msgContent}</td>
+                <td>
+                    <input type="hidden" name="id" value="{$index.msgId}"/>
+                    <a class="button border-green button-little dialogs" name="del" href="#" data-toggle="click" data-target="#mydeldialog" data-mask="1" data-width="30%">删除</a>
+                </td>
+            </tr>
+            </volist>
+            </table>
+        <div class="panel-foot text-center">
+            {$page}
+        </div>
+    </div>
+    <p class="text-right text-gray">基于<a class="text-gray" target="_blank" href="#">郑少卓</a>构建   </p>
 </div>
-        
+
+
+<div id="mymsgdialog"> 
+    <div class="dialog"> 
+        <div class="dialog-head"> 
+            <span class="close rotate-hover"></span> 
+            <strong>新增消息</strong> 
+        </div> 
+        <div class="dialog-body">
+            <form action="{:U('Teacher/addMsg')}" method="post">
+                <div class="form-group">
+                    <div class="label"><label for="receive">收信人：</label></div>
+                    <div class="field">
+                        <select class="input" name="receive" id="receive">
+                            <option value="-1">所有学生</option>
+                            <volist name="ff" id="index">
+                            <option value="{$index.stuId}">{$index.stuRealName}</option>
+                            </volist>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="label"><label for="content">信息内容：</label></div>
+                    <div class="field">
+                        <textarea class="input" rows="3" name="content" id="content" cols="30" placeholder="信息内容"></textarea>
+                    </div>
+                </div>
+                <div class="form-button">
+                    <input type="submit" class="button bg-main" value="Send ..." />
+                    <button class="button bg-yellow" type="reset">刷新</button>
+                </div>
+            </form>
+        </div> 
+    </div> 
+</div>
+<div id="mydeldialog"> 
+    <div class="dialog"> 
+        <div class="dialog-head"> 
+            <span class="close rotate-hover"></span> 
+            <strong>消息操作</strong> 
+        </div> 
+        <div class="dialog-body">
+            <div class="form-group">
+                <p>是否确认要删除该消息？</p>
+            </div>
+            <input type="button" class="button bg-main" value="果断的选择" onclick="javascript:del();" />
+            <button class="button bg-yellow" type="reset">再考虑考虑</button>
+        </div> 
+    </div> 
+</div>
+
+
+
+<script>
+    var ID = null;
+    function del(){
+        window.location.href = "{:U('Teacher/delMsg/id/" + ID + "')}";
+    }
+    $(function(){
+        $(".table a[name='del']").click(function(){
+            ID = $(this).parent().find("input[name='id']").val();
+        });
+
+    });
+</script>

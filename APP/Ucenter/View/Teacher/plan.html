@@ -1,6 +1,68 @@
-
-<div class="adminme">
-         
-    <p class="text-right text-gray">基于<a class="text-gray" target="_blank" href="#">郑少卓</a>构建   </p>
+<div class="tab">
+  	<div class="tab-head text-right">
+    	<strong>学生进度列表</strong>
+    	<span class="tab-more"></span>
+    	<ul class="tab-nav">
+    		<?php if(count($stuPlans) == 0): ?>
+			<li class="active"><a href="#tab-no">温馨提示</a></li>
+			<?php else: ?>
+			<?php foreach($stuPlans as $k => $v): ?>
+      		<li <?php echo $k == 0 ? 'class="active"' : '';?>><a href="#tab-<?php echo $v['planId'];?>"><?php echo $v['stuRealName'];?></a></li>
+			<?php endforeach;?>
+      		<?php endif; ?>
+    	</ul>
+  	</div>
+  	<div class="tab-body">
+  		<div class="tab-panel <?php echo count($stuPlans) == 0 ? 'active' : '';?>" id="tab-no">
+			<p>暂时没学生提交进度安排</p>
+  		</div>
+  		<?php foreach($stuPlans as $k => $v): ?>
+    	<div class="tab-panel <?php echo $k == 0 ? 'active' : '';?>" id="tab-<?php echo $v['planId'];?>">
+    		<ul class="list-group">
+    			<li>课题名称：<?php echo $v['gpTitle'];?></li>
+			  	<li>选题学生：<?php echo $v['stuRealName']; ?></li>
+			  	<li>确定时间：<?php echo date("Y-m-d h:i", $v['updateTime']); ?></li>
+			  	<li>&nbsp;</li>
+			  	<li style="text-align:center; color: red; ">进度安排</li>
+			  	<?php if($v['title1'] != "" && $v['endtime1'] != ""): ?>
+			  	<li>时间安排[①] ：选题确定&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;>>>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $v['endtime1']; ?></li>
+			  	<li>安排名称[①] ：<?php echo $v['title1']; ?></li>
+			  	<li>安排备注[①] ：<?php echo $v['other1']; ?></li>
+			  	<?php endif;?>
+			  	<?php if($v['title2'] != "" && $v['endtime2'] != ""): ?>
+			  	<li>时间安排[②] ：<?php echo $v['endtime1']; ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;>>>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $v['endtime2']; ?></li>
+			  	<li>安排名称[②] ：<?php echo $v['title2']; ?></li>
+			  	<li>安排备注[②] ：<?php echo $v['other2']; ?></li>
+			  	<?php endif;?>
+			  	<?php if($v['title3'] != "" && $v['endtime3'] != ""): ?>
+			  	<li>时间安排[③] ：<?php echo $v['endtime2']; ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;>>>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $v['endtime3']; ?></li>
+			  	<li>安排名称[③] ：<?php echo $v['title3']; ?></li>
+			  	<li>安排备注[③] ：<?php echo $v['other3']; ?></li>
+			  	<?php endif;?>
+			  	<?php if($v['title4'] != "" && $v['endtime4'] != ""): ?>
+			  	<li>时间安排[④] ：<?php echo $v['endtime3']; ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;>>>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $v['endtime1']; ?></li>
+			  	<li>安排名称[④] ：<?php echo $v['title4']; ?></li>
+			  	<li>安排备注[④] ：<?php echo $v['other4']; ?></li>
+			  	<?php endif;?>
+			  	<?php if($v['title5'] != "" && $v['endtime5'] != ""): ?>
+			  	<li>时间安排[⑤] ：<?php echo $v['endtime4']; ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;>>>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $v['endtime5']; ?></li>
+			  	<li>安排名称[⑤] ：<?php echo $v['title5']; ?></li>
+			  	<li>安排备注[⑤] ：<?php echo $v['other5']; ?></li>
+			  	<?php endif;?>
+			  	<?php if($v['title6'] != "" && $v['endtime6'] != ""): ?>
+			  	<li>时间安排[⑥] ：<?php echo $v['endtime5']; ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;>>>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $v['endtime6']; ?></li>
+			  	<li>安排名称[⑥] ：<?php echo $v['title6']; ?></li>
+			  	<li>安排备注[⑥] ：<?php echo $v['other6']; ?></li>
+			  	<?php endif;?>
+			  	<?php if($v['title7'] != "" && $v['endtime7'] != ""): ?>
+			  	<li>时间安排[⑦] ：<?php echo $v['endtime6']; ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;>>>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $v['endtime7']; ?></li>
+			  	<li>安排名称[⑦] ：<?php echo $v['title7']; ?></li>
+			  	<li>安排备注[⑦] ：<?php echo $v['other7']; ?></li>
+			  	<?php endif;?>
+			</ul>
+    	</div>
+    <?php endforeach;?>
+  	</div>
 </div>
-        
+<br/>
+<br/>

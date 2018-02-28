@@ -1,0 +1,67 @@
+ 
+<div class="adminme">
+    <form method="post" class="form-x" action="{:U('Teacher/updateGp')}">
+         <div class="form-group">
+            <div class="label"><label for="title">毕设题目</label></div>
+            <div class="field">
+                <input type="text" class="input" name="title" size="50" placeholder="毕设题目" data-validate="required:请填写毕设题目" value="{$gpDetail['gpTitle']}" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="label"><label for="aim">毕设目的</label></div>
+            <div class="field">
+                <textarea class="input" name="aim" rows="3" cols="30" placeholder="毕设目的" data-validate="required:请填写毕设题目" >{$gpDetail['gpAim']}</textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="label"><label for="content">毕设内容</label></div>
+            <div class="field">
+                <textarea class="input" name="content" rows="3" cols="30" placeholder="毕设内容" data-validate="required:请填写毕设题目" >{$gpDetail['gpContent']}</textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="label"><label for="request">毕设要求</label></div>
+            <div class="field">
+                <textarea class="input" name="request" rows="3" cols="30" placeholder="毕设要求" data-validate="required:请填写毕设题目" >{$gpDetail['gpRequest']}</textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="label"><label for="must">必备知识</label></div>
+            <div class="field">
+                <textarea class="input" name="must" rows="3" cols="30" placeholder="必备知识" data-validate="required:请填写毕设题目" >{$gpDetail['gpMust']}</textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="label"><label for="formal">提交形式</label></div>
+            <div class="field">
+                <input type="text" class="input" name="formal" size="50" placeholder="提交形式" data-validate="required:请填写提交形式" value="{$gpDetail['gpFormal']}"  />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="label"><label for="other">其他</label></div>
+            <div class="field">
+                <textarea class="input" name="other" rows="3" cols="30" placeholder="其他">{$gpDetail['gpOthers']}</textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="label"><label>课题方向</label></div>
+            <div class="field">
+                <div class="button-group radio"> 
+                    <label class="button <?php echo $gpDetail['gpSHState'] == 1 ? 'active' : null; ?>">
+                        <input name="SHState" value="1" <?php echo $gpDetail['gpSHState'] == 1 ? 'checked="true"' : null; ?> type="radio"><span class="icon icon-check"></span> 软件方向
+                    </label> 
+                    <label class="button <?php echo $gpDetail['gpSHState'] == 2 ? 'active' : null; ?>">
+                        <input name="SHState" value="2" <?php echo $gpDetail['gpSHState'] == 2 ? 'checked="true"' : null; ?> type="radio"><span class="icon icon-check"></span> 硬件方向
+                    </label> 
+                </div>
+            </div>
+        </div>
+        <div class="form-button">
+            <input type="hidden" value="{$gpDetail['gpId']}" name="id" />
+            <button class="button bg-main" type="submit">修改</button>
+            <a class="button bg-yellow " href="javascript:history.go(-1);">后退</a>  
+        </div>                
+    </form>   
+    <p class="text-right text-gray">基于<a class="text-gray" target="_blank" href="#">郑少卓</a>构建   </p>
+</div>
+    

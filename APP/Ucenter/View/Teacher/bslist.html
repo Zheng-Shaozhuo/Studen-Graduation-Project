@@ -4,8 +4,7 @@
             <div class="panel admin-panel">
                 <div class="panel-head"><strong>内容列表</strong></div>
                 <div class="padding border-bottom">
-                    <input type="button" class="button button-small border-green" value="新增毕设" onclick="javascript:window.location.href='#';" />
-                    <input type="button" class="button button-small border-blue" value="回收站" onclick="javascript:window.location.href='#'" />
+                    <input type="button" class="button button-small border-green" value="新增毕设" onclick="javascript:window.location.href='{:U('Teacher/add')}';" />
                 </div>
                 <table class="table table-hover">
                     <tr>
@@ -14,6 +13,7 @@
                         <th width="*">课题内容</th>
                         <th width="160">必备知识</th>
                         <th width="140">操作</th>
+                        <th width="90">状态</th>
                     </tr>
                     <volist name="bsList" id="index">
                     <tr>
@@ -23,49 +23,125 @@
                         <td>{$index.gpMust}</td>
                         <td>
                             <input type="hidden" name="id" value="{$index.gpId}"/>
-                            <a class="button border-yellow button-little" name="check" href="#">修改</a>
+                            <a class="button border-yellow button-little dialogs" name="check" href="#" data-toggle="click" data-target="#checkdialog" data-mask="1" data-width="50%">查看</a>
+                            <if condition="$index.state lt 2">
                             <a class="button border-blue button-little" name="modify" href="#">修改</a>
                             <a class="button border-green button-little dialogs" name="delete" href="#" data-toggle="click" data-target="#mydialog" data-mask="1" data-width="30%">删除</a>
+                            </if>
+                        </td>
+                        <td>
+                            <input type="hidden" name="id" value="{$index.gpId}"/>
+                            <if condition="$index.state eq -1">
+                            <a class="button border-black button-little">未通过</a>
+                            <elseif condition="$index.state eq 0"/>
+                            <a class="button border-black button-little">待审核</a>
+                            <elseif condition="$index.state eq 1"/>
+                            <a class="button border-black button-little">已通过</a>
+                            <elseif condition="$index.state eq 2"/>
+                            <a class="button border-black button-little badge-corner dialogs" name="detail" href="#" data-toggle="click" data-target="#detaildialog" data-mask="1" data-width="60%">详情<span class="badge bg-red">{$index.count}</span></a>
+                            <elseif condition="$index.state eq 3"/>
+                            <a class="button border-yellow button-little dialogs" name="chkusr" href="#" data-toggle="click" data-target="#chkusrdialog" data-mask="1" data-width="30%">已确认</a>
+                            </if>
                         </td>
                     </tr>
                     </volist>
                     </table>
                 <div class="panel-foot text-center">
-                    page
+                    <!-- 分页 -->
                 </div>
             </div>
         </form>  
         <p class="text-right text-gray">基于<a class="text-gray" target="_blank" href="#">郑少卓</a>构建   </p>
 </div>
-       
-   <div id="mydialog"> 
+
+    <div id="checkdialog"> 
         <div class="dialog"> 
             <div class="dialog-head"> 
                 <span class="close rotate-hover"></span> 
-                <strong>删除操作</strong> 
+                <strong>课题详情</strong> 
+            </div> 
+            <div class="dialog-body">
+                <div class="form-group">
+                    <p>课题编号：  <a class="gpId" href="#"></a></p>
+                    <p>课题内容：  <a class="gpContent" href="#"></a></p>
+                    <p>课题目的：  <a class="gpAim" href="#"></a></p>
+                    <p>课题要求：  <a class="gpRequest" href="#"></a></p>
+                    <p>必备知识：  <a class="gpMust" href="#"></a></p>
+                    <p>提交形式：  <a class="gpFormal" href="#"></a></p>
+                    <p>其　　他：  <a class="gpOthers" href="#"></a></p>
+                    <p>课题方向：  <a class="gpSHState" href="#"></a></p>
+                </div>
+            </div> 
+        </div> 
+    </div>
+
+    <div id="mydialog"> 
+        <div class="dialog"> 
+            <div class="dialog-head"> 
+                <span class="close rotate-hover"></span> 
+                <strong>课题操作</strong> 
             </div> 
             <div class="dialog-body">
                 <div class="form-group">
                     <p>是否确认要删除该课题？</p>
-                    <p>O(∩_∩)O~~(为不可恢复删除)</p>
+                    <p>O(∩_∩)O~~(为可恢复删除.恢复联系管理员)</p>
                 </div>
-                <input type="button" class="button bg-main" value="删了吧" onclick="javascript:clear();" />
+                <input type="button" class="button bg-main" value="删了吧" onclick="javascript:del();" />
                 <button class="button bg-yellow" type="reset">反悔了</button>
+            </div> 
+        </div> 
+    </div>
+        
+    <div id="chkusrdialog"> 
+        <div class="dialog"> 
+            <div class="dialog-head"> 
+                <span class="close rotate-hover"></span> 
+                <strong>学生详情</strong> 
+            </div> 
+            <div class="dialog-body">
+                <div class="form-group form-me">
+                    <p>学生学号：  <a class="stuCard" href="#"></a></p>
+                    <p>真实姓名：  <a class="stuRealName" href="#"></a></p>
+                    <p>学生专业：  <a class="majorName" href="#"></a></p>
+                    <p>学生性别：  <a class="stuSex" href="#"></a></p>
+                    <p>学生年龄：  <a class="stuAge" href="#"></a></p>
+                    <p>联系方式：  <a class="stuPhone" href="#"></a></p>
+                    <p>邮箱地址：  <a class="stuEmail" href="#"></a></p>
+                </div>
+            </div> 
+        </div> 
+    </div>
+
+    <div id="detaildialog"> 
+        <div class="dialog"> 
+            <div class="dialog-head"> 
+                <span class="close rotate-hover"></span> 
+                <strong>课题详情</strong> 
+            </div> 
+            <div class="dialog-body">
+                <div class="form-group">
+                    <table class="table tableme"> 
+                    </table>
+                </div>
             </div> 
         </div> 
     </div>
 
     <script>
         var ID = null;
-        function recycle(){
-            window.location.href = "{:U('Student/toRecycle/id/" + ID +"')}";
+        function del(){
+            window.location.href = "{:U('Teacher/delGP/id/" + ID +"')}";
+        }
+
+        function confirm(stlId){
+            window.location.href = "{:U('Teacher/confirm/id/" + stlId + "')}";
         }
         $(function(){
             $(".table a[name='check']").click(function(){
                 ID = $(this).parent().find("input[name='id']").val();
                
                 $.ajax({
-                    url: "{:U('Student/checkDetail')}",
+                    url: "{:U('Teacher/checkGP')}",
                     data: {
                         id: ID,
                     },
@@ -74,8 +150,8 @@
                     success: function(data){
                         if(data.state == true){
                             for(var x in data.detail){
-                                if(x == 'stuSex'){
-                                    $(".dialog ." + x + "").html(data.detail[x] == 1 ? '男' : '女');
+                                if(x == 'gpSHState'){
+                                    $(".dialog ." + x + "").html(data.detail[x] == 1 ? '软件方向' : '硬件方向');
                                 }else{
                                     $(".dialog ." + x + "").html(data.detail[x]);
                                 }
@@ -87,9 +163,73 @@
                 }); 
             });
 
-            $(".table a[name='reset']").click(function(){
+            $(".table a[name='chkusr']").click(function(){
+                ID = $(this).parent().find("input[name='id']").val();
+               
+                $.ajax({
+                    url: "{:U('Teacher/chkStuInfo')}",
+                    data: {
+                        id: ID,
+                    },
+                    type: 'post',
+                    dataType: 'json',
+                    success: function(data){
+                        if(data.state == true){
+                            for(var x in data.detail){
+                                if(x == 'stuSex'){
+                                    $(".form-me ." + x + "").html(data.detail[x] == 1 ? '男' : '女');
+                                }else{
+                                    $(".form-me ." + x + "").html(data.detail[x]);
+                                }
+                            }
+                        }else{
+                            return ;
+                        }
+                    }
+                }); 
+            });
+
+            $(".table a[name='detail']").click(function(){
+                ID = $(this).parent().find("input[name='id']").val();
+               
+                $.ajax({
+                    url: "{:U('Teacher/checkStuList')}",
+                    data: {
+                        id: ID,
+                    },
+                    type: 'post',
+                    dataType: 'json',
+                    success: function(data){
+                        if(data.state == true){
+
+                            var str = "<tr><th>学生姓名</th><th>联系方式</th><th>邮件地址</th><th>专业方向</th><th>选定时间</th><th>操作</th></tr><tr>";
+                            for(var x in data.stuList){
+                                var tmp = data.stuList[x];
+                                var stlId = null;
+                                str = "<tr>" + str;
+                                for(var y in tmp){
+                                    if(y == "stlId"){
+                                        stlId = tmp[y];
+                                    }else{
+                                        str += "<td>" + tmp[y] + "</td>";
+                                    }
+                                }
+                                str = str + "<td><a class='button border-blue button-little' name='modify' href='javascript:confirm(" + stlId +")'>确认</a></td></tr>";
+                            }
+                            $(".tableme").html(str);
+                            str = "";
+
+                        }else{
+                            $(".tableme").html("<tr><th style='text-align:center;'>该课题暂无学生选择</th></tr>");
+                            return ;
+                        }
+                    }
+                }); 
+            });
+
+            $(".table a[name='modify']").click(function(){
                 var id = $(this).parent().find("input[name='id']").val();
-                window.location.href = "{:U('Student/reset/id/" + id +"')}";
+                window.location.href = "{:U('Teacher/modifyGP/id/" + id +"')}";
             });
 
             $(".table a[name='delete']").click(function(){
