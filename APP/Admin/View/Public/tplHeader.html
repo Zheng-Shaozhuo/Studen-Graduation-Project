@@ -12,6 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="__CSS__/pintuer.css">
     <link rel="stylesheet" href="__CSS__/admin.css">
+    <link rel="stylesheet" href="__CSS__/page.css">
     <script src="__JS__/jquery.js"></script>
     <script src="__JS__/pintuer.js"></script>
     <script src="__JS__/respond.js"></script>
@@ -36,12 +37,17 @@
                             <li class="<?php echo $flag['son'] == 'admin_index' ? 'active' : '';?>">
                                 <a href="{:U('Admin/index')}">登陆信息</a>
                             </li>
+                            <?php if(session("state") != 3): ?>
                             <li class="<?php echo $flag['son'] == 'teacher_index' ? 'active' : '';?>">
                                 <a href="{:U('Teacher/index')}">教师管理</a>
                             </li>
+                            <?php endif; ?>
+                            <?php if(session("state") != 2): ?>
                             <li class="<?php echo $flag['son'] == 'student_index' ? 'active' : '';?>">
                                 <a href="{:U('Student/index')}">学生管理</a>
                             </li>
+                            <?php endif; ?>
+                            <?php if(session("state") == 1): ?>
                             <li class="<?php echo $flag['son'] == 'desgin_index' ? 'active' : '';?>">
                                 <a href="{:U('Design/index')}">毕设管理</a>
                             </li>
@@ -51,8 +57,10 @@
                             <li class="<?php echo $flag['son'] == 'usr_index' ? 'active' : '';?>">
                                 <a href="{:U('Usr/index')}">用户管理</a>
                             </li>
+                            <?php endif; ?>
                         </ul>
                     </li>
+                    <?php if(session("state") != 3): ?>
                     <li class="<?php echo $flag['prt'] == 'teacher' ? 'active' : '';?>">
                         <a href="{:U('Teacher/index')}" class="icon-user"> 教师</a>
                         <ul>
@@ -67,6 +75,8 @@
                             </li>
                         </ul>
                     </li>
+                    <?php endif; ?>
+                    <?php if(session("state") != 2): ?>
                     <li class="<?php echo $flag['prt'] == 'student' ? 'active' : '';?>">
                         <a href="{:U('Student/index')}" class="icon-file-text"> 学生</a>
                         <ul>
@@ -81,15 +91,17 @@
                             </li>
                         </ul>
                     </li>
+                    <?php endif; ?>
+                    <?php if(session("state") == 1): ?>
                     <li class="<?php echo $flag['prt'] == 'design' ? 'active' : '';?>">
                         <a href="{:U('Design/index')}" class="icon-file"> 毕设</a>
                         <ul>
                             <li class="<?php echo $flag['son'] == 'design_index' ? 'active' : '';?>">
                                 <a href="{:U('Design/index')}">毕设列表</a>
                             </li>
-                            <li class="<?php echo $flag['son'] == 'design_recycle' ? 'active' : '';?>">
+                            <!-- <li class="<?php echo $flag['son'] == 'design_recycle' ? 'active' : '';?>">
                                 <a href="{:U('Design/recycle')}">回收站</a>
-                            </li>
+                            </li> -->
                         </ul>
                     </li>
                     <li class="<?php echo $flag['prt'] == 'msg' ? 'active' : '';?>">
@@ -98,9 +110,9 @@
                             <li class="<?php echo $flag['son'] == 'msg_index' ? 'active' : '';?>">
                                 <a href="{:U('Msg/index')}">消息列表</a>
                             </li>
-                            <li class="<?php echo $flag['son'] == 'msg_recycle' ? 'active' : '';?>">
+                            <!-- <li class="<?php echo $flag['son'] == 'msg_recycle' ? 'active' : '';?>">
                                 <a href="{:U('Msg/recycle')}">回收站</a>
-                            </li>
+                            </li> -->
                         </ul>
                     </li>
                     <li class="<?php echo $flag['prt'] == 'usr' ? 'active' : '';?>">
@@ -117,10 +129,20 @@
                             </li>
                         </ul>
                     </li>
+                    <?php endif; ?>
                 </ul>
             </div>
             <div class="admin-bread">
-                <span>您好，admin，欢迎您的光临。</span>
+                <span>您好，<?php echo session("NAME");?>(
+                    <?php 
+                        if(session("state") == 1){
+                            $t = "超级管理员";
+                        }else if(session("state") == 2){
+                            $t = "教师管理员";
+                        }else if(session("state") == 3){
+                            $t = "学生管理员";
+                        }
+                        echo $t;?>)&nbsp;&nbsp;&nbsp;&nbsp;欢迎您的光临。</span>
                 <ul class="bread">
                     <li><a href="{:U('Admin/index')}" class="icon-home"> 开始</a></li>
                     <if condition="$titles['prt'] eq null">
