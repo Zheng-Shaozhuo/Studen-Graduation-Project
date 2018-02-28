@@ -1,0 +1,48 @@
+
+<div class="adminme">
+        <form method="post">
+            <div class="panel admin-panel">
+                <div class="panel-head"><strong>内容列表</strong></div>
+                <div class="padding border-bottom">
+                    <input type="button" class="button button-small border-green" value="新增消息" onclick="javascript:window.location.href='#';" />
+                    <input type="button" class="button button-small border-blue" value="回收站" onclick="javascript:window.location.href='#'" />
+                </div>
+                <table class="table table-hover">
+                    <tr>
+                        <th width="80">用户编号</th>
+                        <th width="110">用户名称</th>
+                        <th width="110">用户性别</th>
+                        <th width="120">联系方式</th>
+                        <th width="*">邮件地址</th>
+                        <th width="140">用户组</th>
+                        <th width="100">上次登陆</th>
+                        <th width="140">操作</th>
+                    </tr>
+                    <!-- <volist name="usr_list" id="index"> -->
+                    <tr>
+                        <td>index.id</td>
+                        <td>index.name</td>
+                        <td>
+                            <?php echo $index['sex'] == 1 ? '男' : '女'; ?>
+                        </td>
+                        <td>index.phone</td>
+                        <td>index.email</td>
+                        <td>index.levelname</td>
+                        <td>index.lasttime</td>
+                        <td>
+                            <input type="hidden" name="id" value="{$index.id}"/>
+                            <a class="button border-yellow button-little" name="check" href="#">查看</a> 
+                            <a class="button border-blue button-little" name="modify" href="#">修改</a>
+                            <a class="button border-green button-little dialogs" name="delete" href="#" data-toggle="click" data-target="#mydialog" data-mask="1" data-width="30%">删除</a>
+                        </td>
+                    </tr>
+                    <!-- </volist> -->
+                    </table>
+                <div class="panel-foot text-center">
+                    page
+                </div>
+            </div>
+        </form>  
+        <p class="text-right text-gray">基于<a class="text-gray" target="_blank" href="#">郑少卓</a>构建   </p>
+</div>
+        

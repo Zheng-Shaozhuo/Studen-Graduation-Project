@@ -1,0 +1,142 @@
+
+<div class="adminme">
+        <form method="post" class="form-x" action="{:U('Teacher/modifyInfo')}">
+            <div class="form-group">
+                <div class="label"><label for="name">登陆账号</label></div>
+                <div class="field">
+                    <input type="text" class="input" name="usrname" size="50" value="{$usrDetail['thrName']}" disabled="disabled" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label"><label class="oldpwd" for="oldpwd">登录密码</label></div>
+                <div class="field fieldme">
+                    <div class="input-group">
+                        <span class="addon"><input name="chkPhone" type="checkbox" value="1" /></span>
+                        <input type="password" class="input" name="oldpwd" size="50" value="{$usrDetail['thrPwd']}" placeholder="请输入原始密码" disabled="disabled" />
+                    </div>
+                </div>
+            </div>
+            <div class="pwdPanel" style="padding-bottom: 10px; display:none;">
+                <div class="form-group">
+                    <div class="label"><label for="pwd">新密码</label></div>
+                    <div class="field">
+                        <input type="password" class="input" name="newpwd" size="50" value=" " placeholder="请输入新登陆密码，位数不小于 5" 
+                        data-validate="required:请填写密码,length#>=5:密码长度不符合要求 (>5)"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="label"><label for="pwd">确认密码</label></div>
+                    <div class="field">
+                        <input type="password" class="input" name="confirmpwd" size="50" value=" " placeholder="再次确认新登陆密码"
+                        data-validate="required:请填写确认密码,repeat#newpwd:两次输入的密码不一致" />
+                    </div>
+                </div>  
+            </div>
+            <div class="form-group">
+                <div class="label"><label for="age">真实姓名</label></div>
+                <div class="field">
+                    <input type="text" class="input" name="realName" size="50" placeholder="真实姓名" data-validate="required:请填写真实姓名" value="{$usrDetail['thrRealName']}" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label"><label for="age">用户年龄</label></div>
+                <div class="field">
+                    <input type="text" class="input" name="age" size="50" placeholder="用户年龄" data-validate="required:请填写用户年龄,number:用户年龄必须为整数" value="{$usrDetail['thrAge']}" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label"><label>用户性别</label></div>
+                <div class="field">
+                    <div class="button-group radio"> 
+                        <label class="button active">
+                            <input name="sex" value="1" <?php echo $usrDetail['thrSex'] == 1 ? 'checked="checked"' : null; ?> type="radio"><span class="icon icon-male"></span> 男
+                        </label> 
+                        <label class="button ">
+                            <input name="sex" value="2" <?php echo $usrDetail['thrSex'] == 2 ? 'checked="checked"' : null; ?> type="radio"><span class="icon icon-female"></span> 女
+                        </label> 
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label"><label for="phone">联系方式</label></div>
+                <div class="form-group">
+                    <div class="field">
+                      <div class="input-group">
+                        <span class="addon"><input name="chkPhone" type="checkbox" value="1"  <?php echo $usrDetail['showState'][0] == 1 ? 'checked="checked"' : null; ?>/></span>
+                        <input type="text" class="input" name="Phone" size="50" placeholder="联系方式，勾选则学生可见" value="{$usrDetail['thrPhone']}" data-validate="required:请填写联系方式" />
+                      </div>
+                    </div>
+                </div>
+            <div class="form-group">
+                <div class="label"><label for="email">邮件地址</label></div>
+                <div class="form-group">
+                    <div class="field">
+                      <div class="input-group">
+                        <span class="addon"><input name="chkEmail" type="checkbox" value="1"  <?php echo $usrDetail['showState'][1] == 1 ? 'checked="checked"' : null; ?> /></span>
+                        <input type="text" class="input" name="Email" size="50" placeholder="邮件地址，勾选则学生可见" value="{$usrDetail['thrEmail']}"
+                        data-validate="required:请填写邮件地址"/>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label"><label for="address">办公地址</label></div>
+                <div class="form-group">
+                    <div class="field">
+                      <div class="input-group">
+                        <span class="addon"><input name="chkAddress" type="checkbox" value="1"  <?php echo $usrDetail['showState'][2] == 1 ? 'checked="checked"' : null; ?> /></span>
+                        <input type="text" class="input" name="Address" size="50" placeholder="办公地址，勾选则学生可见" value="{$usrDetail['thrAddress']}" data-validate="required:请填写办公地址" />
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label"><label for="usr_lvl">研究方向</label></div>
+                <div class="form-group">
+                    <div class="field">
+                      <div class="input-group">
+                        <span class="addon"><input name="chkStudy" type="checkbox" value="1"  <?php echo $usrDetail['showState'][3] == 1 ? 'checked="checked"' : null; ?> /></span>
+                        <input type="text" class="input" name="Study" size="50" placeholder="研究方向，勾选则学生可见" value="{$usrDetail['thrStudy']}" data-validate="required:请填写研究方向"/>
+                      </div>
+                    </div>
+                </div>
+            </div> 
+            
+            <div class="form-button">
+                <input type="hidden" name="usrId" value="{$usrDetail['thrId']}"/> 
+                <button class="button bg-main" type="submit">提交</button>
+                <button class="button bg-yellow " type="button">后退</button>  
+            </div>                
+        </form>   
+        <p class="text-right text-gray">基于<a class="text-gray" target="_blank" href="#">郑少卓</a>构建   </p>
+</div>
+        
+    <script>
+        $(function(){
+            var t = $("input[name='oldpwd']").val();
+            $(".pwdPanel input[name='newpwd']").val(t);
+            $(".pwdPanel input[name='confirmpwd']").val(t);
+            function monitor(mythis){
+                
+                if(mythis.is(':checked')){
+                    $(".oldpwd").html('修改密码');
+                    $("input[name='oldpwd']").val("");
+                    $("input[name='oldpwd']").attr('disabled', false);
+                    $(".pwdPanel").show();
+                    $(".pwdPanel input[name='newpwd']").val("");
+                    $(".pwdPanel input[name='confirmpwd']").val("");
+                }else{
+                    $(".oldpwd").html('登陆密码');
+                    $("input[name='oldpwd']").val(t);
+                    $("input[name='oldpwd']").attr('disabled', true);
+                    $(".pwdPanel").hide();
+                    $(".pwdPanel input[name='newpwd']").val(t);
+                    $(".pwdPanel input[name='confirmpwd']").val(t);
+                }
+            }
+
+            $(".fieldme input[type='checkbox']").click(function(){
+                monitor($(this));
+            });
+        });
+    </script>

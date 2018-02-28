@@ -1,0 +1,54 @@
+ 
+<div class="adminme">
+    <form method="post" class="form-x" action="{:U('Teacher/addDesign')}">
+         <div class="form-group">
+            <div class="label"><label for="title">毕设题目</label></div>
+            <div class="field">
+                <input type="text" class="input" name="title" size="50" placeholder="毕设题目" data-validate="required:请填写毕设题目" value="" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="label"><label for="aim">毕设目的</label></div>
+            <div class="field">
+                <textarea class="input" name="aim" rows="3" cols="30" placeholder="毕设目的" data-validate="required:请填写毕设题目" ></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="label"><label for="content">毕设内容</label></div>
+            <div class="field">
+                <textarea class="input" name="content" rows="3" cols="30" placeholder="毕设内容" data-validate="required:请填写毕设题目" ></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="label"><label for="request">毕设要求</label></div>
+            <div class="field">
+                <textarea class="input" name="request" rows="3" cols="30" placeholder="毕设要求" data-validate="required:请填写毕设题目" ></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="label"><label for="must">必备知识</label></div>
+            <div class="field">
+                <textarea class="input" name="must" rows="3" cols="30" placeholder="必备知识" data-validate="required:请填写毕设题目" ></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="label"><label for="formal">提交形式</label></div>
+            <div class="field">
+                <input type="text" class="input" name="formal" size="50" placeholder="提交形式" data-validate="required:请填写提交形式"  />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="label"><label for="other">其他</label></div>
+            <div class="field">
+                <textarea class="input" name="other" rows="3" cols="30" placeholder="其他"></textarea>
+            </div>
+        </div>
+        
+        <div class="form-button">
+            <button class="button bg-main" type="submit">提交</button>
+            <button class="button bg-yellow form-reset " type="reset">后退</button>  
+        </div>                
+    </form>   
+    <p class="text-right text-gray">基于<a class="text-gray" target="_blank" href="#">郑少卓</a>构建   </p>
+</div>
+    
