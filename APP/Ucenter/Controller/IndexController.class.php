@@ -15,7 +15,7 @@ class IndexController extends Controller {
     	if($flag == "s"){
     	//学生登录
             $obj = M('student');
-            $where['stuName'] = $usrname;
+            $where['stuCard'] = $usrname;
             $where['stuPwd'] = md5($usrpwd);
 
             $usrInfo = $obj->field('stuId, stuRealName, stuSex')->where($where)->find();
