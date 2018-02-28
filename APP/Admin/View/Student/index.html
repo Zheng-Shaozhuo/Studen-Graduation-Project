@@ -1,0 +1,127 @@
+
+    <div class="admin">
+        <form method="post">
+        <div class="panel admin-panel">
+            <div class="panel-head"><strong>内容列表</strong></div>
+            <div class="padding border-bottom">
+                <input type="button" class="button button-small border-green" value="新增学生" onclick="javascript:window.location.href='{:U('Student/add')}';" />
+                <input type="button" class="button button-small border-blue" value="回收站" onclick="javascript:window.location.href='{:U('Student/recycle')}'" />
+            </div>
+            <table class="table table-hover">
+                <tr>
+                    <th width="140">学号</th>
+                    <th width="140">姓名</th>
+                    <th width="110">性别</th>
+                    <th width="120">联系方式</th>
+                    <th width="*">专业名称</th>
+                    <th width="180">操作</th>
+                </tr>
+                <volist name="usrList" id="index">
+                <tr>
+                    <td>{$index.stuCard}</td>
+                    <td>{$index.stuRealName}</td>
+                    <td>
+                        <?php echo $index['stuSex'] == 1 ? '男' : '女'; ?>
+                    </td>
+                    <td>{$index.stuPhone}</td>
+                    <td>{$index.majorName}</td>
+                    <td>
+                        <input type="hidden" name="id" value="{$index.stuId}"/>
+                        <a class="button border-yellow button-little dialogs" name="check" href="#" data-toggle="click" data-target="#checkdialog" data-mask="1" data-width="30%">查看</a>
+                        <a class="button border-blue button-little" name="reset" href="#">重置密码</a>
+                        <a class="button border-green button-little dialogs" name="delete" href="#" data-toggle="click" data-target="#mydialog" data-mask="1" data-width="30%">删除</a>
+                    </td>
+                </tr>
+                </volist>
+                </table>
+            <div class="panel-foot text-center">
+                page
+            </div>
+        </div>
+        </form>
+        <br />
+        <p class="text-right text-gray">基于<a class="text-gray" target="_blank" href="#">郑少卓</a>构建   </p>
+    </div>
+
+    <div id="checkdialog"> 
+        <div class="dialog"> 
+            <div class="dialog-head"> 
+                <span class="close rotate-hover"></span> 
+                <strong>学生详情</strong> 
+            </div> 
+            <div class="dialog-body">
+                <div class="form-group">
+                    <p>学生学号：  <a class="stuCard" href="#"></a></p>
+                    <p>真实姓名：  <a class="stuRealName" href="#"></a></p>
+                    <p>学生专业：  <a class="majorName" href="#"></a></p>
+                    <p>学生性别：  <a class="stuSex" href="#"></a></p>
+                    <p>学生年龄：  <a class="stuAge" href="#"></a></p>
+                    <p>联系方式：  <a class="stuPhone" href="#"></a></p>
+                    <p>邮箱地址：  <a class="stuEmail" href="#"></a></p>
+                </div>
+            </div> 
+        </div> 
+    </div>
+
+    <div id="mydialog"> 
+        <div class="dialog"> 
+            <div class="dialog-head"> 
+                <span class="close rotate-hover"></span> 
+                <strong>学生操作</strong> 
+            </div> 
+            <div class="dialog-body">
+                <div class="form-group">
+                    <p>是否确认要删除该学生？</p>
+                    <p>O(∩_∩)O~~(为可恢复删除)</p>
+                </div>
+                <input type="button" class="button bg-main" value="删了吧" onclick="javascript:recycle();" />
+                <button class="button bg-yellow" type="reset">反悔了</button>
+            </div> 
+        </div> 
+    </div>
+        
+
+    <script>
+        var ID = null;
+        function recycle(){
+            window.location.href = "{:U('Student/toRecycle/id/" + ID +"')}";
+        }
+        $(function(){
+            $(".table a[name='check']").click(function(){
+                ID = $(this).parent().find("input[name='id']").val();
+               
+                $.ajax({
+                    url: "{:U('Student/checkDetail')}",
+                    data: {
+                        id: ID,
+                    },
+                    type: 'post',
+                    dataType: 'json',
+                    success: function(data){
+                        if(data.state == true){
+                            for(var x in data.detail){
+                                if(x == 'stuSex'){
+                                    $(".dialog ." + x + "").html(data.detail[x] == 1 ? '男' : '女');
+                                }else{
+                                    $(".dialog ." + x + "").html(data.detail[x]);
+                                }
+                            }
+                        }else{
+                            return ;
+                        }
+                    }
+                }); 
+            });
+
+            $(".table a[name='reset']").click(function(){
+                var id = $(this).parent().find("input[name='id']").val();
+                window.location.href = "{:U('Student/reset/id/" + id +"')}";
+            });
+
+            $(".table a[name='delete']").click(function(){
+                var id = $(this).parent().find("input[name='id']").val();
+                ID = id;
+            });
+
+        });
+    </script>

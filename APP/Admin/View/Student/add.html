@@ -1,0 +1,67 @@
+
+    <div class="admin">
+        <form method="post" class="form-x" action="{:U('Student/addUsr')}">
+             <div class="form-group">
+                <div class="label"><label for="name">登陆账号</label></div>
+                <div class="field">
+                    <div class="input-group">
+                        <span class="addon"><input name="account" type="radio" checked="checked" value="single" /></span>
+                        <input type="text" class="input" id="singleAccount" name="singleAccount" size="50" placeholder="单个账号，譬如：2011117200"/>
+                    </div>
+                    <div class="input-group">
+                        <span class="addon"><input name="account" type="radio" value="mul" /></span>
+                        <input type="text" class="input" id="mulAccount" name="mulAccount" size="50" placeholder="范围账号，譬如：2011117200-2011117280" disabled="disabled" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label"><label for="pwd">登录密码</label></div>
+                <div class="field">
+                    <input type="password" class="input" name="pwd" size="50" placeholder="登陆密码初始化，不做设置则默认为 666666" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label"><label for="name">学生姓名</label></div>
+                <div class="field">
+                    <input type="text" class="input" id="name" name="name" size="50" placeholder="学生姓名"  />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label"><label>学生性别</label></div>
+                <div class="field">
+                    <div class="button-group radio"> 
+                        <label class="button active">
+                            <input name="sex" value="1" checked="checked" type="radio"> 男
+                        </label> 
+                        <label class="button">
+                            <input name="sex" value="2" type="radio"> 女
+                        </label> 
+                    </div>
+                </div>
+            </div>
+            <div class="form-button">
+                <button class="button bg-main" type="submit">提交</button>
+                <button class="button bg-yellow form-reset " type="reset">重设</button>
+            </div>
+        </form>   
+        <p class="text-right text-gray">基于<a class="text-gray" target="_blank" href="#">郑少卓</a>构建   </p>
+    </div>
+
+    <script>
+        $(function(){
+            $(".admin input[name='account']").click(function(){
+                if($(this).val() == 'single'){
+                    $("#singleAccount").attr('disabled', false);
+                    $("#mulAccount").attr('disabled', true);
+                    $("#mulAccount").val("");
+                    $("#name").attr('disabled', false);
+                }else{
+                    $("#mulAccount").attr('disabled', false);
+                    $("#singleAccount").attr('disabled', true);
+                    $("#singleAccount").val("");
+                    $("#name").attr('disabled', true);
+                    $("#name").val("");
+                }
+            });
+        });
+    </script>
