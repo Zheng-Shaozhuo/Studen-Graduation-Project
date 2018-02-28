@@ -1,11 +1,42 @@
 
     <div class="admin">
-        <form method="post">
         <div class="panel admin-panel">
-            <div class="panel-head"><strong>内容列表</strong></div>
-            <div class="padding border-bottom">
+            <div class="panel-head">
                 <input type="button" class="button button-small border-green" value="新增教师" onclick="javascript:window.location.href='{:U('Teacher/add')}';" />
                 <input type="button" class="button button-small border-blue" value="回收站" onclick="javascript:window.location.href='{:U('Teacher/recycle')}'" />
+            </div>
+            <div class="padding border-bottom">
+                <form action="{:U('Teacher/index')}" class="form-inline">
+                    <div class="form-group">
+                        <div class="label"><label for="thrCard">工号</label></div>
+                        <div class="field">
+                            <input type="text" class="input" id="thrCard" name="thrCard" size="12" value="<?php echo isset($seachData['thrCard']) && !empty($seachData['thrCard']) ? $seachData['thrCard'] : '';?>" placeholder="教师工号" />
+                        </div>
+                    </div>
+                    &nbsp;
+                    <div class="form-group">
+                        <div class="label"><label for="thrName">姓名</label></div>
+                        <div class="field">
+                            <input type="text" class="input" id="thrName" name="thrName" size="12" value="<?php echo isset($seachData['thrName']) && !empty($seachData['thrName']) ? $seachData['thrName'] : '';?>" placeholder="教师姓名" />
+                        </div>
+                    </div>
+                    &nbsp;
+                    <div class="form-group">
+                        <div class="label"><label for="thrSex">教师性别</label></div>
+                        <div class="field">
+                            <select class="input" name="thrSex" id="thrSex">
+                                <option value="">请选择</option> 
+                                <option <?php echo $seachData['thrSex'] == 1 ? 'selected="selected"' : '' ;?> value="1">男</option>
+                                <option <?php echo $seachData['thrSex'] == 2 ? 'selected="selected"' : '' ;?> value="2">女</option>
+                            </select>
+                        </div>
+                    </div>
+                    &nbsp;
+                    &nbsp;
+                    <div class="form-button">
+                        <button class="button bg-green" type="submit">检索</button>
+                    </div>
+                </form>
             </div>
             <table class="table table-hover">
                 <tr>
@@ -26,7 +57,7 @@
                         <?php echo $index['thrSex'] == 1 ? '男' : '女'; ?>
                     </td>
                     <td>{$index.thrPhone}</td>
-                    <td>{$index.thrthrdy}</td>
+                    <td>{$index.thrStudy}</td>
                     <td>
                         <input type="hidden" name="id" value="{$index.thrId}"/>
                         <a class="button border-yellow button-little dialogs" name="check" href="#" data-toggle="click" data-target="#checkdialog" data-mask="1" data-width="30%">查看</a>
@@ -37,10 +68,9 @@
                 </volist>
                 </table>
             <div class="panel-foot text-center">
-                page
+                <div class ="green-black">{$page}</div>
             </div>
         </div>
-        </form>
         <br />
         <p class="text-right text-gray">基于<a class="text-gray" target="_blank" href="#">郑少卓</a>构建   </p>
     </div>
