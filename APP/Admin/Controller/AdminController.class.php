@@ -34,6 +34,13 @@
             $titles['son'] = "登录信息";
             $this->assign("titles", $titles);
 
+            $countList['usr'] = M('admin')->Count();
+            $countList['student'] = M('student')->Count();
+            $countList['teacher'] = M('teacher')->Count();
+            $countList['message'] = M('message')->Count();
+            $countList['gp'] = M('gproject')->Count();
+            $this->assign("CLists", $countList);
+
             $this->display();
         }
 
