@@ -1,0 +1,41 @@
+
+    <div class="admin">
+        <form method="post" class="form-x" action="{:U('Teacher/addUsr')}">
+             <div class="form-group">
+                <div class="label"><label for="name">登陆账号</label></div>
+                <div class="field">
+                    <input type="text" class="input" id="name" name="name" size="50" placeholder="登陆账号" data-validate="required:请填写用户登陆账号" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label"><label for="pwd">登录密码</label></div>
+                <div class="field">
+                    <input type="password" class="input" name="pwd" size="50" placeholder="登陆密码初始化，不做设置则默认为 888888" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label"><label for="name">教师姓名</label></div>
+                <div class="field">
+                    <input type="text" class="input" id="realName" name="realName" size="50" placeholder="教师姓名" data-validate="required:请填写教师姓名" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label"><label>教师性别</label></div>
+                <div class="field">
+                    <div class="button-group radio"> 
+                        <label class="button active">
+                            <input name="sex" value="1" checked="checked" type="radio"> 男
+                        </label> 
+                        <label class="button">
+                            <input name="sex" value="2" type="radio"> 女
+                        </label> 
+                    </div>
+                </div>
+            </div>
+            <div class="form-button">
+                <button class="button bg-main" type="submit">提交</button>
+                <button class="button bg-yellow form-reset " type="reset">重设</button>
+            </div>
+        </form>   
+        <p class="text-right text-gray">基于<a class="text-gray" target="_blank" href="#">郑少卓</a>构建   </p>
+    </div>
