@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <title>{$title}</title>
+    <meta name="keywords" content="关键词" />
+    <meta name="description" content="描述" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="__CSS__/pintuer.css">
+    <link rel="stylesheet" href="__CSS__/admin.css">
+    <link rel="stylesheet" href="__CSS__/me.css">
+    <script src="__JS__/jquery.js"></script>
+    <script src="__JS__/pintuer.js"></script>
+    <script src="__JS__/respond.js"></script>
+
+</head>
+<body>
+    <header>
+        <div class="layout layout_top bg22 fixed-top">
+            <p class="nav-p">
+                欢迎您，adfafafga
+                &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                <a href="{:U('Student/loginout')}">注销</a>
+                &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                <a href="{:U('Student/index')}">首页</a>
+            </p>
+        </div>
+    </header>
+
+    <section>
+        <div class="line">
+            <div class="xm2 bg22 contBox">
+                <aside>
+                <ul class="nav">
+                    <li><a href="{:U('Student/index')}" class="lls <?php echo $state == 'index' ? 'active' : '';?>">登录信息</a></li>
+                    <li><a href="{:U('Student/person')}" class="lls <?php echo $state == 'person' ? 'active' : '';?>">个人管理</a></li>
+                    <li><a href="{:U('Student/bslist')}" class="lls <?php echo $state == 'bslist' ? 'active' : '';?>">毕设列表</a></li>
+                    <li><a href="{:U('Student/detail')}" class="lls <?php echo $state == 'detail' ? 'active' : '';?>">毕设详情</a></li>
+                    <li><a href="{:U('Student/msg')}" class="lls <?php echo $state == 'msg' ? 'active' : '';?>">消息管理</a></li>
+                    <li><a href="{:U('Student/plan')}" class="lls <?php echo $state == 'plan' ? 'active' : '';?>">毕设进度</a></li>
+                    <li><a href="{:U('Student/choose')}" class="lls <?php echo $state == 'choose' ? 'active' : '';?>">毕设选题</a></li>
+                </ul>
+                </aside>
+            </div>
+            <div class="xm10 contBox">
+                <div class="bread-me">
+                    <ul class="bread bg">
+                      <li><a href="{:U('Student/index')}" class="icon-home"> 首页</a></li>
+                      <li>{$title}</li>
+                    </ul>
+                </div>
