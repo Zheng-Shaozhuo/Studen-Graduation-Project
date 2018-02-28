@@ -1,0 +1,12 @@
+body{padding-top: 48px;}
+.bg22{background-color: #222222;}
+header > .layout_top{height: 48px; z-index: 9999;}
+.layout_top .nav-p{color: #bcbcbc; display: inline-block; float: right; margin-top: 20px; margin-right: 60px;}
+.layout_top .nav-p a{color: #bcbcbc;}
+.layout_top .nav-p a:hover{color: #ffffff;}
+
+section > .line .contBox{min-height: 600px;}
+.contBox .lls{height: 50px; line-height: 50px; width: 100%; display: block; color: #9C9895; text-indent: 20px; border-top: 1px solid #080808;}
+.contBox .lls:hover, .contBox .active{background-color: #080808; color: #ffffff;}
+.contBox .bread-me{}
+.contBox .adminme{padding: 20px;}

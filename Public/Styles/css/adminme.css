@@ -1,0 +1,15 @@
+body{padding-top: 60px;}
+.bg22{background-color: #222222;}
+header > .layout_top{height: 60px; z-index: 9999;}
+.layout_top .navbarme{margin-left: 160px; margin-top: 21px; display: inline-block;}
+.layout_top .lls{color: #9C9895;}
+.layout_top .lls:hover, .layout_top .active{background-color: #080808; color: #ffffff;}
+
+.layout_top .nav-p{color: #bcbcbc; display: inline-block; float: right; margin-top: 30px; margin-right: 50px;}
+.layout_top .nav-p a{color: #bcbcbc;}
+.layout_top .nav-p a:hover{color: #ffffff;}
+
+section > .line .contBox{min-height: 600px;}
+
+.contBox .bread-me{}
+.contBox .adminme{padding: 20px;}
