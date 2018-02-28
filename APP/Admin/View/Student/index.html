@@ -1,11 +1,54 @@
 
     <div class="admin">
-        <form method="post">
         <div class="panel admin-panel">
-            <div class="panel-head"><strong>内容列表</strong></div>
-            <div class="padding border-bottom">
+            <div class="panel-head">
                 <input type="button" class="button button-small border-green" value="新增学生" onclick="javascript:window.location.href='{:U('Student/add')}';" />
                 <input type="button" class="button button-small border-blue" value="回收站" onclick="javascript:window.location.href='{:U('Student/recycle')}'" />
+            </div>
+            <div class="padding border-bottom">
+                <form action="{:U('Student/index')}" class="form-inline">
+                    <div class="form-group">
+                        <div class="label"><label for="stuCard">学号</label></div>
+                        <div class="field">
+                            <input type="text" class="input" id="stuCard" name="stuCard" size="12" value="<?php echo isset($seachData['stuCard']) && !empty($seachData['stuCard']) ? $seachData['stuCard'] : '';?>" placeholder="学生学号" />
+                        </div>
+                    </div>
+                    &nbsp;
+                    <div class="form-group">
+                        <div class="label"><label for="stuName">姓名</label></div>
+                        <div class="field">
+                            <input type="text" class="input" id="stuName" name="stuName" size="12" value="<?php echo isset($seachData['stuName']) && !empty($seachData['stuName']) ? $seachData['stuName'] : '';?>" placeholder="学生姓名" />
+                        </div>
+                    </div>
+                    &nbsp;
+                    <div class="form-group">
+                        <div class="label"><label for="stuSex">学生性别</label></div>
+                        <div class="field">
+                            <select class="input" name="stuSex" id="stuSex">
+                                <option value="">请选择</option> 
+                                <option <?php echo $seachData['stuSex'] == 1 ? 'selected="selected"' : '' ;?> value="1">男</option>
+                                <option <?php echo $seachData['stuSex'] == 2 ? 'selected="selected"' : '' ;?> value="2">女</option>
+                            </select>
+                        </div>
+                    </div>
+                    &nbsp;
+                    <div class="form-group">
+                        <div class="label"><label for="stuMajor">学生专业</label></div>
+                        <div class="field">
+                            <select class="input" name="stuMajor" id="stuMajor">
+                                <option value="">请选择</option> 
+                                <volist name="majorList" id="index">
+                                <option <?php echo $seachData['stuMajor'] == $index['majorId'] ? 'selected="selected"' : '' ;?> value="{$index.majorId}">{$index.majorName}</option>
+                                </volist>
+                            </select>
+                        </div>
+                    </div>
+                    &nbsp;
+                    &nbsp;
+                    <div class="form-button">
+                        <button class="button bg-green" type="submit">检索</button>
+                    </div>
+                </form>
             </div>
             <table class="table table-hover">
                 <tr>
@@ -35,10 +78,9 @@
                 </volist>
                 </table>
             <div class="panel-foot text-center">
-                page
+                <div class ="green-black">{$page}</div>
             </div>
         </div>
-        </form>
         <br />
         <p class="text-right text-gray">基于<a class="text-gray" target="_blank" href="#">郑少卓</a>构建   </p>
     </div>
