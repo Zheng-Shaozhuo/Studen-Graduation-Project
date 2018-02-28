@@ -31,6 +31,24 @@ class IndexController extends Controller {
     			$this->error("用户名或密码不正确");
     		}
 
+    	}else if($flag == "t"){
+    	//教师登录
+            $obj = M('teacher');
+            $where['thrName'] = $usrname;
+            $where['thrPwd'] = md5($usrpwd);
+
+            $usrInfo = $obj->field('thrId, thrRealName, thrSex')->where($where)->find();
+
+    		if(isset($usrInfo) && is_array($usrInfo)){
+                session("FLAG", "teacher");
+                session("NAME", $usrInfo['thrRealName']);
+                session("ID", $usrInfo['thrId']);
+                session("SEX", $usrInfo['thrSex']);
+    			
+    			$this->redirect("Teacher/index");
+    		}else{
+    			$this->error("用户名或密码不正确");
+    		}
     	}
 
     }
