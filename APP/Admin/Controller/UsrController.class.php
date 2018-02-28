@@ -18,10 +18,10 @@
             $this->assign("titles", $titles);
 
             $obj = M('admin');
-            $where['state'] = 1;
+            // $where['state'] = 1;
             $usrList = $obj->field('adminId, adminName, adminRealName, adminSex, adminPhone, adminEmail, state')->where($where)->select();
             $this->assign("usrList", $usrList);
-
+            
             $this->display();
         }
 
@@ -78,7 +78,7 @@
                 $tmpTime = time();
                 $data['createTime']     = $tmpTime;
                 $data['updateTime']     = $tmpTime;
-                $data['state']          = 1;
+                $data['state']          = I("post.state");
 
                 $obj = M('admin');
                 $flag = $obj->add($data);
