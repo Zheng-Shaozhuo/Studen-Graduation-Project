@@ -1,64 +1,207 @@
 
     <div class="admin">
-        <form method="post">
         <div class="panel admin-panel">
-            <div class="panel-head"><strong>内容列表</strong></div>
+          <!--   <div class="panel-head">
+                <input type="button" class="button button-small border-blue" value="回收站" onclick="javascript:window.location.href='{:U('Design/recycle')}'" />
+            </div> -->
             <div class="padding border-bottom">
-                <input type="button" class="button button-small border-blue" value="回收站" onclick="javascript:window.location.href='#'" />
+                <form action="{:U('Design/index')}" class="form-inline">
+                    <div class="form-group">
+                        <div class="label"><label for="gpThrId">指导老师</label></div>
+                        <div class="field">
+                            <input type="text" class="input" id="gpThrId" name="gpThrId" size="12" value="<?php echo isset($seachData['gpThrId']) && !empty($seachData['gpThrId']) ? $seachData['gpThrId'] : '';?>" placeholder="指导老师" />
+                        </div>
+                    </div>
+                    &nbsp;
+                    <div class="form-group">
+                        <div class="label"><label for="gpContent">关键词</label></div>
+                        <div class="field">
+                            <input type="text" class="input" id="gpContent" name="gpContent" size="12" value="<?php echo isset($seachData['gpContent']) && !empty($seachData['gpContent']) ? $seachData['gpContent'] : '';?>" placeholder="关键词" />
+                        </div>
+                    </div>
+                    &nbsp;
+                    <div class="form-group">
+                        <div class="label"><label for="state">课题状态</label></div>
+                        <div class="field">
+                            <select class="input" name="state" id="state">
+                                <option value="">请选择</option>
+                                <option <?php echo $seachData['state'] == -1 ? 'selected="selected"' : '' ;?> value="-1">待审核</option>
+                                <option <?php echo $seachData['state'] == 1 ? 'selected="selected"' : '' ;?> value="1">已审核</option>
+                                <option <?php echo $seachData['state'] == 3 ? 'selected="selected"' : '' ;?> value="3">已选定</option>
+                            </select>
+                        </div>
+                    </div>
+                    &nbsp;
+                    <div class="form-group">
+                        <div class="label"><label for="gpSHState">课题方向</label></div>
+                        <div class="field">
+                            <select class="input" name="gpSHState" id="gpSHState">
+                                <option value="">请选择</option>
+                                <option <?php echo $seachData['gpSHState'] == 1 ? 'selected="selected"' : '' ;?> value="1">软件方向</option>
+                                <option <?php echo $seachData['gpSHState'] == 2 ? 'selected="selected"' : '' ;?> value="2">硬件方向</option>
+                            </select>
+                        </div>
+                    </div>
+                    &nbsp;
+                    &nbsp;
+                    <div class="form-button">
+                        <button class="button bg-green" type="submit">检索</button>
+                    </div>
+                </form>
             </div>
             <table class="table table-hover">
                 <tr>
-                    <th width="80">用户编号</th>
-                    <th width="110">用户名称</th>
-                    <th width="110">用户性别</th>
-                    <th width="120">联系方式</th>
-                    <th width="*">邮件地址</th>
-                    <th width="140">用户组</th>
-                    <th width="100">上次登陆</th>
+                    <th width="80">课题编号</th>
+                    <th width="110">课题名称</th>
+                    <th width="*">课题内容</th>
+                    <th width="160">必备知识</th>
+                    <th width="140">课题状态</th>
+                    <th width="80">指导老师</th>
                     <th width="140">操作</th>
                 </tr>
-                <!-- <volist name="usr_list" id="index"> -->
+                <volist name="bsList" id="index">
                 <tr>
-                    <td>index.id</td>
-                    <td>index.name</td>
+                    <td>{$index.gpId}</td>
+                    <td>{$index.gpTitle}</td>
+                    <td>{$index.gpContent}</td>
+                    <td>{$index.gpMust}</td>
                     <td>
-                        <?php echo $index['sex'] == 1 ? '男' : '女'; ?>
+                        <if condition="$index.state eq 0">
+                            待审核
+                         <elseif condition="$index.state eq 1"/>
+                            通过审核
+                        <elseif condition="$index.state eq 2"/>
+                            通过审核
+                        <elseif condition="$index.state eq 3"/>
+                            已确定
+                         <elseif condition="$index.state eq -1"/>
+                            未通过审核
+                        </if> 
                     </td>
-                    <td>index.phone</td>
-                    <td>index.email</td>
-                    <td>index.levelname</td>
-                    <td>index.lasttime</td>
+                    <td>{$index.thrRealName}</td>
                     <td>
-                        <input type="hidden" name="id" value="{$index.id}"/>
-                        <a class="button border-yellow button-little" name="check" href="#">查看</a> 
-                        <a class="button border-blue button-little" name="modify" href="#">修改</a>
+                        <input type="hidden" name="id" value="{$index.gpId}"/>
+                        <a class="button border-blue button-little dialogs" name="check" href="#" data-toggle="click" data-target="#checkdialog" data-mask="1" data-width="50%">查看</a>
+                        <if condition="$index.state eq 0">
+                        <a class="button border-red button-little dialogs" name="shenhe" href="#" data-toggle="click" data-target="#myshenhe" data-mask="1" data-width="30%">审核</a>
                         <a class="button border-green button-little dialogs" name="delete" href="#" data-toggle="click" data-target="#mydialog" data-mask="1" data-width="30%">删除</a>
+                        </if>
                     </td>
                 </tr>
-                <!-- </volist> -->
+                </volist>
                 </table>
             <div class="panel-foot text-center">
-                page
+                <div class ="green-black">{$page}</div>
             </div>
         </div>
-        </form>
         <br />
         <p class="text-right text-gray">基于<a class="text-gray" target="_blank" href="#">郑少卓</a>构建   </p>
     </div>
+
+     <div id="checkdialog"> 
+        <div class="dialog"> 
+            <div class="dialog-head"> 
+                <span class="close rotate-hover"></span> 
+                <strong>课题详情</strong> 
+            </div> 
+            <div class="dialog-body">
+                <div class="form-group">
+                    <p>课题编号：  <a class="gpId" href="#"></a></p>
+                    <p>课题内容：  <a class="gpContent" href="#"></a></p>
+                    <p>课题目的：  <a class="gpAim" href="#"></a></p>
+                    <p>课题要求：  <a class="gpRequest" href="#"></a></p>
+                    <p>必备知识：  <a class="gpMust" href="#"></a></p>
+                    <p>提交形式：  <a class="gpFormal" href="#"></a></p>
+                    <p>课题方向：  <a class="gpSHState" href="#"></a></p>
+                    <p>其　　他：  <a class="gpOthers" href="#"></a></p>
+                    <p>指导老师：  <a class="thrRealName" href="#"></a></p>
+                </div>
+            </div> 
+        </div> 
+    </div>
+
     <div id="mydialog"> 
         <div class="dialog"> 
             <div class="dialog-head"> 
                 <span class="close rotate-hover"></span> 
-                <strong>用户操作</strong> 
+                <strong>课题操作</strong> 
             </div> 
             <div class="dialog-body">
                 <div class="form-group">
-                    <p>是否确认要删除该用户？</p>
+                    <p>是否确认要删除该课题？</p>
                     <p>O(∩_∩)O~~(为可恢复删除)</p>
                 </div>
-        
-                <input type="button" class="button bg-main" value="删了吧" onclick="javascript:recycle();" />
+                <input type="button" class="button bg-main" value="删了吧" onclick="javascript:del();" />
                 <button class="button bg-yellow" type="reset">反悔了</button>
             </div> 
         </div> 
     </div>
+
+    <div id="myshenhe"> 
+        <div class="dialog"> 
+            <div class="dialog-head"> 
+                <span class="close rotate-hover"></span> 
+                <strong>课题审核</strong> 
+            </div> 
+            <div class="dialog-body">
+                    <div class="form-group">
+                        <p>该课题尚未进行审核，请审核：</p>
+                    </div>
+                    <br/>
+                    <br/>
+                    <div class="form-button">
+                        <input type="button" class="button bg-main" value="审核通过" onclick="javascript:shenhe(1);" />
+                        <input type="button" class="button bg-blue" value="未通过审核" onclick="javascript:shenhe(-1);" />
+                        <button class="button bg-yellow" type="reset">再考虑考虑</button>
+                    </div>
+            </div> 
+        </div> 
+    </div>
+        
+
+    <script>
+        var ID = null;
+        function del(){
+            window.location.href = "{:U('Design/cycGP/id/" + ID +"')}";
+        }
+        function shenhe(flag){
+            window.location.href = "{:U('Design/SH/id/" + ID +"/flag/" + flag + "')}";
+        }
+        $(function(){
+            $(".table a[name='check']").click(function(){
+                ID = $(this).parent().find("input[name='id']").val();
+               
+                $.ajax({
+                    url: "{:U('Design/checkGP')}",
+                    data: {
+                        id: ID,
+                    },
+                    type: 'post',
+                    dataType: 'json',
+                    success: function(data){
+                        if(data.state == true){
+                            for(var x in data.detail){
+                                if(x == 'gpSHState'){
+                                    $(".dialog ." + x + "").html(data.detail[x] == 1 ? '软件方向' : '硬件方向');
+                                }else{
+                                    $(".dialog ." + x + "").html(data.detail[x]);
+                                }
+                            }
+                        }else{
+                            return ;
+                        }
+                    }
+                }); 
+            });
+
+            $(".table a[name='delete']").click(function(){
+                var id = $(this).parent().find("input[name='id']").val();
+                ID = id;
+            });
+            $(".table a[name='shenhe']").click(function(){
+                var id = $(this).parent().find("input[name='id']").val();
+                ID = id;
+            });
+
+        });
+    </script>

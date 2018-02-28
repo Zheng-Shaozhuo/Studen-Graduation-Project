@@ -5,9 +5,9 @@
             <div class="panel-head"><strong>内容列表</strong></div>
             <div class="padding border-bottom">
                 <input type="button" class="button button-small checkall" name="checkall" checkfor="id" value="全选" />
-                <input type="button" class="button button-small border-yellow dialogs" value="批量恢复" name="recoverallbtn" href="#" data-toggle="click" data-target="#recoverdialog" data-mask="1" data-width="30%" />
-                <input type="button" class="button button-small border-blue dialogs" value="批量清除" name="clearallbtn" href="#" data-toggle="click" data-target="#cleardialog" data-mask="1" data-width="30%" />
-                <div id="recoverdialog"> 
+                <input type="button" class="button button-small border-yellow dialogs" value="批量恢复" name="recoverallbtn" href="#" data-toggle="click" data-target="#recoversdialog" data-mask="1" data-width="30%" />
+                <input type="button" class="button button-small border-blue dialogs" value="批量清除" name="clearallbtn" href="#" data-toggle="click" data-target="#clearsdialog" data-mask="1" data-width="30%" />
+                <div id="recoversdialog"> 
                     <div class="dialog"> 
                         <div class="dialog-head"> 
                             <span class="close rotate-hover"></span> 
@@ -21,7 +21,7 @@
                         </div> 
                     </div> 
                 </div>
-                <div id="cleardialog"> 
+                <div id="clearsdialog"> 
                     <div class="dialog"> 
                         <div class="dialog-head"> 
                             <span class="close rotate-hover"></span> 
@@ -39,29 +39,29 @@
             <table class="table table-hover">
                 <tr>
                     <th width="45">选择</th>
-                    <th width="110">用户名称</th>
-                    <th width="110">用户性别</th>
-                    <th width="120">联系方式</th>
-                    <th width="*">邮件地址</th>
-                    <th width="120">最近登录</th>
-                    <th width="140">用户组</th>
+                    <th width="80">课题编号</th>
+                    <th width="110">课题名称</th>
+                    <th width="*">课题内容</th>
+                    <th width="160">必备知识</th>
+                    <th width="140">提交形式</th>
+                    <th width="100">指导老师</th>
                     <th width="100">操作</th>
                 </tr>
-                <volist name="usr_list" id="index">
+                <volist name="bsList" id="index">
                 <tr>
                     <td>
-                        <input type="checkbox" name="id" value="{$index.id}" />
+                        <input type="checkbox" name="id" value="{$index.gpId}" />
                     </td>
-                    <td>index.name</td>
-                    <td><?php echo $index['sex'] == 1 ? '男' : '女'; ?></td>
-                    <td>index.phone</td>
-                    <td>index.email</td>
-                    <td>index.lasttime</td>
-                    <td>index.levelname</td>
+                    <td>{$index.gpId}</td>
+                    <td>{$index.gpTitle}</td>
+                    <td>{$index.gpContent}</td>
+                    <td>{$index.gpMust}</td>
+                    <td>{$index.gpFormal}</td>
+                    <td>{$index.thrRealName}</td>
                     <td>
-                        <input type="hidden" value="index.id" />
-                        <a class="button border-blue button-little" name="recover" href="#">恢复</a> 
-                        <a class="button border-yellow button-little" name="clear" href="#">清除</a>
+                        <input name='gpid' type="hidden" value="{$index.gpId}" />
+                        <a class="button border-blue button-little dialogs" name="recover" href="#" data-toggle="click" data-target="#recoverdialog" data-mask="1" data-width="30%">恢复</a>
+                        <a class="button border-yellow button-little dialogs" name="clear" href="#" data-toggle="click" data-target="#cleardialog" data-mask="1" data-width="30%">清除</a>
                     </td>
                 </tr>
                 </volist>
@@ -74,20 +74,58 @@
         <br />
         <p class="text-right text-gray">基于<a class="text-gray" target="_blank" href="#">郑少卓</a>构建   </p>
     </div>
-    <div id="mydialog"> 
+    <div id="cleardialog"> 
         <div class="dialog"> 
             <div class="dialog-head"> 
                 <span class="close rotate-hover"></span> 
-                <strong>用户操作</strong> 
+                <strong>课题操作</strong> 
             </div> 
             <div class="dialog-body">
                 <div class="form-group">
-                    <p>是否确认要删除该用户？</p>
-                    <p>O(∩_∩)O~~(为可恢复删除)</p>
+                    <p>是否确认要清除该课题？</p>
+                    <p>O__O"…~~(删了就没了)</p>
                 </div>
         
-                <input type="button" class="button bg-main" value="删了吧" onclick="javascript:recycle();" />
-                <button class="button bg-yellow" type="reset">反悔了</button>
+                <input type="button" class="button bg-main" value="残忍的删除" onclick="javascript:clearr();" />
+                <button class="button bg-yellow" type="reset">愉快的拒绝</button>
             </div> 
         </div> 
     </div>
+    <div id="recoverdialog"> 
+        <div class="dialog"> 
+            <div class="dialog-head"> 
+                <span class="close rotate-hover"></span> 
+                <strong>课题操作</strong> 
+            </div> 
+            <div class="dialog-body">
+                <div class="form-group">
+                    <p>是否确认要恢复该课题？</p>
+                    <p>O(∩_∩)O~~(可以考虑考虑)</p>
+                </div>
+        
+                <input type="button" class="button bg-main" value="那就恢复吧" onclick="javascript:recover();" />
+                <button class="button bg-yellow" type="reset">再考虑考虑</button>
+            </div> 
+        </div> 
+    </div>
+
+    <script>
+        var ID = null;
+        function recover(){
+            window.location.href = "{:U('Design/recoverOne/id/" + ID + "')}";
+        }
+
+        function clearr(){
+            window.location.href = "{:U('Design/clearOne/id/" + ID + "')}";
+        }
+
+        $(function(){
+            $(".table a[name='recover']").click(function(){
+                ID = $(this).parent().find("input[name='gpid']").val();
+            });
+
+            $(".table a[name='clear']").click(function(){
+                ID = $(this).parent().find("input[name='gpid']").val();
+            });
+        });
+    </script>
