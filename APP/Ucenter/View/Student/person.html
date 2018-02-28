@@ -1,28 +1,47 @@
 
 <div class="adminme">
-    <form method="post" class="form-x" action="#">
+    <form method="post" class="form-x" action="{:U('Student/modifyInfo')}">
         <div class="form-group">
             <div class="label"><label for="name">用户账号</label></div>
             <div class="field">
-                <input type="text" class="input" id="name" name="name" size="50" placeholder="用户名称" data-validate="required:请填写新用户名称" value="usr.name" disabled="disabled" />
+                <input type="text" class="input" id="name" name="name" size="50" placeholder="用户名称" data-validate="required:请填写新用户名称" value="{$usrInfo['stuCard']}" disabled="disabled" />
             </div>
         </div>
         <div class="form-group">
             <div class="label"><label for="pwd">用户密码</label></div>
-            <div class="field">
-                <input type="password" class="input" id="pwd" name="pwd" size="50" placeholder="用户密码，位数不小于 6" data-validate="required:请填写密码,length#>=6:密码长度不符合要求 (>6)" value="usr.pwd" />
+            <div class="field fieldme">
+                <div class="input-group">
+                    <span class="addon"><input name="chkPwd" type="checkbox" value="1" /></span>
+                    <input type="password" class="input" name="pwd" size="50" value="{$usrInfo['stuPwd']}" placeholder="请输入原始密码" disabled="disabled" />
+                </div>
             </div>
         </div>
+        <div class="pwdPanel" style="padding-bottom: 10px; display:none;">
+            <div class="form-group">
+                <div class="label"><label for="pwd">新密码</label></div>
+                <div class="field">
+                    <input type="password" class="input" name="newpwd" size="50" value=" " placeholder="请输入新登陆密码，位数不小于 5" 
+                    data-validate="required:请填写密码,length#>=5:密码长度不符合要求 (>5)"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label"><label for="confirmpwd">确认密码</label></div>
+                <div class="field">
+                    <input type="password" class="input" name="confirmpwd" size="50" value=" " placeholder="再次确认新登陆密码"
+                    data-validate="required:请填写确认密码,repeat#newpwd:两次输入的密码不一致" />
+                </div>
+            </div>  
+        </div>
         <div class="form-group">
-            <div class="label"><label for="age">用户姓名</label></div>
+            <div class="label"><label for="realName">用户姓名</label></div>
             <div class="field">
-                <input type="text" class="input" id="age" name="age" size="50" placeholder="用户年龄" data-validate="required:请填写用户年龄,number:用户年龄必须为整数" value="usr.age" />
+                <input type="text" class="input" id="realName" name="realName" size="50" placeholder="用户姓名" data-validate="required:请填写用户姓名" value="{$usrInfo['stuRealName']}" />
             </div>
         </div>
         <div class="form-group">
             <div class="label"><label for="age">用户年龄</label></div>
             <div class="field">
-                <input type="text" class="input" id="age" name="age" size="50" placeholder="用户年龄" data-validate="required:请填写用户年龄,number:用户年龄必须为整数" value="usr.age" />
+                <input type="text" class="input" id="age" name="age" size="50" placeholder="用户年龄" data-validate="required:请填写用户年龄,number:用户年龄必须为整数" value="{$usrInfo['stuAge']}" />
             </div>
         </div>
         <div class="form-group">
@@ -30,10 +49,10 @@
             <div class="field">
                 <div class="button-group radio"> 
                     <label class="button active">
-                        <input name="sex" value="1" checked type="radio"> 男
+                        <input name="sex" value="1" <?php echo $usrInfo['stuSex'] == 1 ? 'checked="checked"' : null; ?> type="radio"><span class="icon icon-male"></span> 男
                     </label> 
                     <label class="button ">
-                        <input name="sex" value="2" type="radio"> 女
+                        <input name="sex" value="2" <?php echo $usrInfo['stuSex'] == 2 ? 'checked="checked"' : null; ?> type="radio"><span class="icon icon-female"></span> 女
                     </label> 
                 </div>
             </div>
@@ -41,19 +60,13 @@
         <div class="form-group">
             <div class="label"><label for="phone">联系方式</label></div>
             <div class="field">
-                <input type="text" class="input" id="phone" name="phone" size="50" placeholder="联系方式" data-validate="required:请填写用户联系方式,number:请填写正确的联系方式" value="usr.phone" />
+                <input type="text" class="input" id="phone" name="phone" size="50" placeholder="联系方式" data-validate="required:请填写用户联系方式,number:请填写正确的联系方式" value="{$usrInfo['stuPhone']}" />
             </div>
         </div>
         <div class="form-group">
             <div class="label"><label for="email">邮件地址</label></div>
             <div class="field">
-                <input type="text" class="input" id="email" name="email" size="50" placeholder="邮件地址" data-validate="required:请填写邮件地址,email:请填写正确的邮件地址" value="usr.email" />
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="label"><label for="address">家庭住址</label></div>
-            <div class="field">
-                <input type="text" class="input" id="address" name="address" size="50" placeholder="用户住址" data-validate="required:请填写用户住址，建议在20字以内。"  value="usr.address" />
+                <input type="text" class="input" id="email" name="email" size="50" placeholder="邮件地址" data-validate="required:请填写邮件地址,email:请填写正确的邮件地址" value="{$usrInfo['stuEmail']}" />
             </div>
         </div>
         <div class="form-group">
@@ -61,18 +74,48 @@
             <div class="field">
                 <select class="input" name="usr_lvl" id="usr_lvl" data-validate="required:请选择用户组">
                     <option value="">请选择</option> 
-                    <!-- <volist name="lvl_list" id="index"> -->
-                    <option value="index.id" >index.name</option>
-                    <!-- </volist> -->
+                    <volist name="majorList" id="index">
+                    <option value="{$index.majorId}" <?php echo $index['majorId'] == $usrInfo['stuMajor'] ? 'selected="selected"' : null;?> >{$index.majorName}</option>
+                    </volist>
                 </select>
             </div>
         </div> 
         
         <div class="form-button">
-            <input type="hidden" name="usr_id" value="usr.id"/> 
+            <input type="hidden" name="usr_id" value="{$usrInfo[stuId]}"/> 
             <button class="button bg-main" type="submit">提交</button>
             <button class="button bg-yellow form-reset " type="reset">后退</button>  
         </div>                
     </form>   
     <p class="text-right text-gray">基于<a class="text-gray" target="_blank" href="#">郑少卓</a>构建   </p>
 </div>
+
+<script>
+    $(function(){
+        var t = $("input[name='pwd']").val();
+        $(".pwdPanel input[name='newpwd']").val(t);
+        $(".pwdPanel input[name='confirmpwd']").val(t);
+        function monitor(mythis){
+            
+            if(mythis.is(':checked')){
+                $(".pwd").html('修改密码');
+                $("input[name='pwd']").val("");
+                $("input[name='pwd']").attr('disabled', false);
+                $(".pwdPanel").show();
+                $(".pwdPanel input[name='newpwd']").val("");
+                $(".pwdPanel input[name='confirmpwd']").val("");
+            }else{
+                $(".pwd").html('登陆密码');
+                $("input[name='pwd']").val(t);
+                $("input[name='pwd']").attr('disabled', true);
+                $(".pwdPanel").hide();
+                $(".pwdPanel input[name='newpwd']").val(t);
+                $(".pwdPanel input[name='confirmpwd']").val(t);
+            }
+        }
+
+        $(".fieldme input[type='checkbox']").click(function(){
+            monitor($(this));
+        });
+    });
+</script>

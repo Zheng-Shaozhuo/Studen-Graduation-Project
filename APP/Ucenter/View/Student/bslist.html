@@ -2,46 +2,91 @@
 <div class="adminme">
     <form method="post">
         <div class="panel admin-panel">
-            <div class="panel-head"><strong>内容列表</strong></div>
-            <div class="padding border-bottom">
-                <input type="button" class="button button-small border-green" value="新增毕设" onclick="javascript:window.location.href='#';" />
-                <input type="button" class="button button-small border-blue" value="回收站" onclick="javascript:window.location.href='#'" />
-            </div>
             <table class="table table-hover">
                 <tr>
-                    <th width="80">用户编号</th>
-                    <th width="110">用户名称</th>
-                    <th width="110">用户性别</th>
-                    <th width="120">联系方式</th>
-                    <th width="*">邮件地址</th>
-                    <th width="140">用户组</th>
-                    <th width="100">上次登陆</th>
-                    <th width="140">操作</th>
+                    <th width="60">编号</th>
+                    <th width="120">课题方向</th>
+                    <th width="140">课题标题</th>
+                    <th width="*">课题内容</th>
+                    <th width="140">指导老师</th>
+                    <th width="120">操作</th>
                 </tr>
-                <!-- <volist name="usr_list" id="index"> -->
+                <volist name="meGpList" id="index">
                 <tr>
-                    <td>index.id</td>
-                    <td>index.name</td>
+                    <td>{$index.gpId}</td>
                     <td>
-                        <?php echo $index['sex'] == 1 ? '男' : '女'; ?>
+                        <?php echo $index['gpSHState'] == 1 ? '软件方向' : '硬件方向'; ?>
                     </td>
-                    <td>index.phone</td>
-                    <td>index.email</td>
-                    <td>index.levelname</td>
-                    <td>index.lasttime</td>
+                    <td>{$index.gpTitle}</td>
+                    <td>{$index.gpContent}</td>
+                    <td>{$index.thrRealName}</td>
                     <td>
-                        <input type="hidden" name="id" value="{$index.id}"/>
-                        <a class="button border-yellow button-little" name="check" href="#">查看</a> 
-                        <a class="button border-blue button-little" name="modify" href="#">修改</a>
-                        <a class="button border-green button-little dialogs" name="delete" href="#" data-toggle="click" data-target="#mydialog" data-mask="1" data-width="30%">删除</a>
+                        <input type="hidden" name="id" value="{$index.gpId}"/>
+                        <if condition="$index['sstate'] eq 1">
+                        <a class="button border-green button-little dialogs" name="tuixuan" href="#" data-toggle="click" data-target="#mydialog" data-mask="1" data-width="30%">退选</a>
+                        <elseif condition="$index['sstate'] eq 2"/>
+                        <a class="button border-green button-little" href="javascript:window.location.href='{:U('Student/detail')}'">已确定</a>
+                        <elseif condition="$index['sstate'] eq 3"/>
+                        <a class="button border-red button-little dialogs" name="shanchu" href="#" data-toggle="click" data-target="#myshanchudialog" data-mask="1" data-width="30%">删除(已放弃)</a>
+                        </if>
                     </td>
                 </tr>
-                <!-- </volist> -->
+                </volist>
                 </table>
-            <div class="panel-foot text-center">
+           <!--  <div class="panel-foot text-center">
                 page
-            </div>
+            </div> -->
         </div>
     </form>  
     <p class="text-right text-gray">基于<a class="text-gray" target="_blank" href="#">郑少卓</a>构建   </p>
 </div>
+
+<div id="mydialog"> 
+    <div class="dialog"> 
+        <div class="dialog-head"> 
+            <span class="close rotate-hover"></span> 
+            <strong>课题操作</strong> 
+        </div> 
+        <div class="dialog-body">
+            <div class="form-group">
+                <p>是否确认要退选该课题？</p>
+                <p>O(∩_∩)O~~</p>
+            </div>
+            <input type="button" class="button bg-main" value="果断的选择" onclick="javascript:tuixuan();" />
+            <button class="button bg-yellow" type="reset">再考虑考虑</button>
+        </div> 
+    </div> 
+</div>
+<div id="myshanchudialog"> 
+    <div class="dialog"> 
+        <div class="dialog-head"> 
+            <span class="close rotate-hover"></span> 
+            <strong>课题操作</strong> 
+        </div> 
+        <div class="dialog-body">
+            <div class="form-group">
+                <p>是否要删除该课题？(留着也没用)</p>
+                <p>O(∩_∩)O~~</p>
+            </div>
+            <input type="button" class="button bg-main" value="- 删 - " onclick="javascript:shanchu();" />
+            <button class="button bg-yellow" type="reset">再考虑考虑</button>
+        </div> 
+    </div> 
+</div>
+<script>
+    var ID = null;
+    function tuixuan(){
+        window.location.href = "{:U('Student/tuixuan/id/" + ID + "')}";
+    }
+    function shanchu(){
+        window.location.href = "{:U('Student/shanchu/id/" + ID + "')}";
+    }
+    $(function(){
+        $(".table a[name='tuixuan']").click(function(){
+            ID = $(this).parent().find("input[name='id']").val();
+        });
+        $(".table a[name='shanchu']").click(function(){
+            ID = $(this).parent().find("input[name='id']").val();
+        });
+    });
+</script>

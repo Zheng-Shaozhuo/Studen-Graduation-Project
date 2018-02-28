@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="__CSS__/pintuer.css">
     <link rel="stylesheet" href="__CSS__/admin.css">
+    <link rel="stylesheet" href="__CSS__/page.css">
     <script src="__JS__/jquery.js"></script>
     <script src="__JS__/pintuer.js"></script>
     <script src="__JS__/respond.js"></script>
@@ -26,8 +27,8 @@
         .contBox .bread-me{}
         .contBox .adminme{padding: 20px;}
         section .lineme{min-width: 100%;}
-        .lineme .xm2me{width: 16.6667%; position: absolute; top: 48px; left: -16.6667%;}
-        .lineme .xm10me{width: 80%; min-width: 800px; margin: 0px auto; padding: 0px 40px;}
+        .lineme .xm2me{width: 16.6667%; position: absolute; top: 48px; left: -16.6667%; z-index: 100;}
+        .lineme .xm10me{width: 80%; min-width: 800px; margin: 0px auto; padding: 0px 8px; }
     </style>
 
 </head>
@@ -35,7 +36,7 @@
     <header>
         <div class="layout layout_top bg22 fixed-top">
             <p class="nav-p">
-                欢迎您，adfafafga
+                欢迎您，{$usrName}
                 &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
                 <a href="{:U('Student/loginout')}">注销</a>
                 &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
@@ -71,45 +72,49 @@
                         <div class="panel-head">
                             <form action="#" class="form-inline">
                                 <div class="form-group">
-                                    <div class="label"><label for="artjj">课题检索</label></div>
+                                    <div class="label"><label for="GPName">课题检索</label></div>
                                     <div class="field">
-                                        <input type="text" class="input" id="name" name="name" size="12" placeholder="用户名称" />
+                                        <input type="text" class="input" id="GPName" name="GPName" size="12" value="<?php echo isset($seachData['GPName']) && !empty($seachData['GPName']) ? $seachData['GPName'] : '';?>" placeholder="课题名称" />
                                     </div>
                                 </div>
                                 &nbsp;
                                 <div class="form-group">
-                                    <div class="label"><label for="artjj">关键字</label></div>
+                                    <div class="label"><label for="GPKey">关键字</label></div>
                                     <div class="field">
-                                        <input type="text" class="input" id="name" name="name" size="12" placeholder="用户名称" />
+                                        <input type="text" class="input" id="GPKey" name="GPKey" size="12" value="<?php echo isset($seachData['GPKey']) && !empty($seachData['GPKey']) ? $seachData['GPKey'] : '';?>" placeholder="关键字" />
                                     </div>
                                 </div>
                                 &nbsp;
                                 <div class="form-group">
-                                    <div class="label"><label for="column">指导教师</label></div>
+                                    <div class="label"><label for="GPThrName">指导教师</label></div>
                                     <div class="field">
-                                        <select class="input" name="column" id="column">
+                                        <select class="input" name="GPThrName" id="GPThrName">
                                             <option value="">请选择</option> 
-                                            <volist name="column_list" id="index">
-                                            <option value="{$index.id}">{$index.title}</option>
-                                            <volist name="index.son_list" id="index">
-                                            <option value="{$index.id}">└─{$index.title}</option>
-                                            </volist>
+                                            <volist name="thrList" id="index">
+                                            <option value="{$index.gpThrId}" <?php echo $index['gpThrId'] == $seachData['GPThrName'] ? "selected='selected'" : "";?>>{$index.thrRealName}</option>
                                             </volist>
                                         </select>
                                     </div>
                                 </div>
                                 &nbsp;
                                 <div class="form-group">
-                                    <div class="label"><label for="column">课题状态</label></div>
+                                    <div class="label"><label for="GPState">课题状态</label></div>
                                     <div class="field">
-                                        <select class="input" name="column" id="column">
+                                        <select class="input" name="GPState" id="GPState">
                                             <option value="">请选择</option> 
-                                            <volist name="column_list" id="index">
-                                            <option value="{$index.id}">{$index.title}</option>
-                                            <volist name="index.son_list" id="index">
-                                            <option value="{$index.id}">└─{$index.title}</option>
-                                            </volist>
-                                            </volist>
+                                            <option <?php echo $seachData['GPState'] == 1 ? 'selected="selected"' : '' ;?> value="1">未选定</option>
+                                            <option <?php echo $seachData['GPState'] == 2 ? 'selected="selected"' : '' ;?> value="2">已确定</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                &nbsp;
+                                <div class="form-group">
+                                    <div class="label"><label for="GPSH">课题方向</label></div>
+                                    <div class="field">
+                                        <select class="input" name="GPSH" id="GPSH">
+                                            <option value="">请选择</option> 
+                                            <option <?php echo $seachData['GPSH'] == 1 ? 'selected="selected"' : '' ;?> value="1">软件方向</option>
+                                            <option <?php echo $seachData['GPSH'] == 2 ? 'selected="selected"' : '' ;?> value="2">硬件方向</option>
                                         </select>
                                     </div>
                                 </div>
@@ -124,37 +129,56 @@
                         <br />
                         <table class="table table-hover table-striped table-bordered">
                             <tr>
-                                <th width="80">用户编号</th>
-                                <th width="110">用户名称</th>
-                                <th width="110">用户性别</th>
-                                <th width="120">联系方式</th>
-                                <th width="*">邮件地址</th>
-                                <th width="140">用户组</th>
-                                <th width="100">上次登陆</th>
-                                <th width="140">操作</th>
+                                <th width="60">编号</th>
+                                <th width="120">课题方向</th>
+                                <th width="140">课题标题</th>
+                                <th width="*">课题内容</th>
+                                <th width="80">课题方向</th>
+                                <th width="80">指导老师</th>
+                                <th width="120">操作</th>
                             </tr>
-                            <!-- <volist name="usr_list" id="index"> -->
+                            <volist name="gpList" id="index">
                             <tr>
-                                <td>index.id</td>
-                                <td>index.name</td>
+                                <td>{$index.gpId}</td>
                                 <td>
-                                    <?php echo $index['sex'] == 1 ? '男' : '女'; ?>
+                                    <?php echo $index['gpSHState'] == 1 ? '软件方向' : '硬件方向'; ?>
                                 </td>
-                                <td>index.phone</td>
-                                <td>index.email</td>
-                                <td>index.levelname</td>
-                                <td>index.lasttime</td>
+                                <td>{$index.gpTitle}</td>
+                                <td>{$index.gpContent}</td>
                                 <td>
-                                    <input type="hidden" name="id" value="{$index.id}"/>
-                                    <a class="button border-yellow button-little" name="check" href="#">查看</a> 
-                                    <a class="button border-blue button-little" name="modify" href="#">修改</a>
-                                    <a class="button border-green button-little dialogs" name="delete" href="#" data-toggle="click" data-target="#mydialog" data-mask="1" data-width="30%">删除</a>
+                                    <if condition="$index.gpSHState eq 1">
+                                        软件方向
+                                    <else />
+                                        硬件方向
+                                    </if>
+                                </td>
+                                <td>{$index.thrRealName}</td>
+                                <td>
+                                    <input type="hidden" name="id" value="{$index.gpId}"/>
+                                    <input type="hidden" name="thrId" value="{$index.gpThrId}"/>
+                                    <a class="button border-yellow button-little dialogs" name="check" href="#" data-toggle="click" data-target="#checkdialog" data-mask="1" data-width="60%">查看</a>
+                                    <?php
+                                        $Fflag = false;
+                                        for($i = 0; $i < count($choseIds); $i++){
+                                            if($choseIds[$i]['stlSpId'] == $index['gpId']){
+                                                $Fflag = true;
+                                            }
+                                        }
+                                    ?>
+                                    <if condition="$Fflag eq true">
+                                    <!-- <a class="button border-black button-little">已选择</a> -->
+                                    <else/>
+                                    <if condition="$FF eq false">
+                                    <a class="button border-green button-little dialogs" name="choose" href="#" data-toggle="click" data-target="#mydialog" data-mask="1" data-width="30%">选题</a>
+                                    </if>
+                                    </if>
+                                    </volist>
                                 </td>
                             </tr>
-                            <!-- </volist> -->
+                            </volist>
                             </table>
                         <div class="panel-foot text-center">
-                            page
+                            <div class ="green-black">{$page}</div>
                         </div>
                     </div>
                 <p class="text-right text-gray">基于<a class="text-gray" target="_blank" href="#">郑少卓</a>构建   </p>
@@ -166,8 +190,96 @@
     <footer>
         
     </footer>
+    <div id="checkdialog"> 
+        <div class="dialog"> 
+            <div class="dialog-head"> 
+                <span class="close rotate-hover"></span> 
+                <strong>学生详情</strong> 
+            </div> 
+            <div class="dialog-body">
+                <div class="form-group form-group-me">
+                    <p>课题编号：  <a class="gpId" href="#"></a></p>
+                    <p>课题标题：  <a class="gpTitle" href="#"></a></p>
+                    <p>课题方向：  <a class="gpSHState" href="#"></a></p>
+                    <p>课题内容：  <a class="gpContent" href="#"></a></p>
+                    <p>课题目的：  <a class="gpAim" href="#"></a></p>
+                    <p>课题要求：  <a class="gpRequest" href="#"></a></p>
+                    <p>必备知识：  <a class="gpMust" href="#"></a></p>
+                    <p>提交形式：  <a class="gpFormal" href="#"></a></p>
+                    <p>其　　他：  <a class="gpOthers" href="#"></a></p>
+                    <p>指导老师：  <a class="thrRealName" href="#"></a></p>
+                    <p>研究方向：  <a class="thrStudy" href="#"></a></p>
+                    <p>联系方式：  <a class="thrPhone" href="#"></a></p>
+                    <p>邮件地址：  <a class="thrEmail" href="#"></a></p>
+                    <p>办公地址：  <a class="thrAddress" href="#"></a></p>
+                </div>
+                <style>
+                    .form-group-me p{margin-bottom: 5px;}
+                </style>
+            </div> 
+        </div> 
+    </div>
+
+    <div id="mydialog"> 
+        <div class="dialog"> 
+            <div class="dialog-head"> 
+                <span class="close rotate-hover"></span> 
+                <strong>课题操作</strong> 
+            </div> 
+            <div class="dialog-body">
+                <div class="form-group">
+                    <p>是否确认要选择该课题？</p>
+                    <p>O(∩_∩)O~~</p>
+                </div>
+                <input type="button" class="button bg-main" value="果断的选择" onclick="javascript:choose();" />
+                <button class="button bg-yellow" type="reset">再考虑考虑</button>
+            </div> 
+        </div> 
+    </div>
+    
+
 
     <script>
+        var ID = null;
+        var ThrId = null;
+        function choose(){
+            window.location.href = "{:U('Student/chooseGP/id/" + ID +"/thrid/" + ThrId + "')}";
+        }
+        $(function(){
+            $(".table a[name='check']").click(function(){
+                ID = $(this).parent().find("input[name='id']").val();
+               
+                $.ajax({
+                    url: "{:U('Student/checkGPDetail')}",
+                    data: {
+                        id: ID,
+                    },
+                    type: 'post',
+                    dataType: 'json',
+                    success: function(data){
+                        if(data.state == true){
+                            for(var x in data.detail){
+                                if(x == 'gpSHState'){
+                                    $(".dialog ." + x + "").html(data.detail[x] == 1 ? '软件方向' : '硬件方向');
+                                }else{
+                                    $(".dialog ." + x + "").html(data.detail[x]);
+                                }
+                            }
+                        }else{
+                            return ;
+                        }
+                    }
+                }); 
+            });
+
+            $(".table a[name='choose']").click(function(){
+                ID = $(this).parent().find("input[name='id']").val();
+                ThrId = $(this).parent().find("input[name='thrId']").val();
+            });
+
+        });
+
+
         $(function(){
 
             $(document).mousemove(function(e){
@@ -180,7 +292,6 @@
                 }else{
                     $(".xm2me").css('left', -screen_X * 0.166667);
                 }
-                // console.log(e.pageX + ":" + e.pageY);
             });
         });
     </script>
