@@ -28,9 +28,21 @@
                         <?php echo $index['adminSex'] == 1 ? '男' : '女'; ?>
                     </td>
                     <td>{$index.adminPhone}</td>
-                    <td>{$index.Email}</td>
+                    <td>{$index.adminEmail}</td>
                     <td>
-                        <?php echo $index['state'] == 1 ? '系统管理员' : '系统管理员'; ?>
+                        <?php switch($index['state']){
+                            case 1:
+                                echo "系统管理员";
+                                break;
+                            case 2:
+                                echo "教师管理员";
+                                break;
+                            case 3:
+                                echo "学生管理员";
+                                break;
+                            break;
+                            }
+                            ?> 
                     </td>
                     <td>
                         <input type="hidden" name="id" value="{$index.adminId}"/>
