@@ -1,0 +1,135 @@
+
+    <div class="admin">
+        <form method="post">
+        <div class="panel admin-panel">
+            <div class="panel-head"><strong>内容列表</strong></div>
+            <div class="padding border-bottom">
+                <input type="button" class="button button-small border-green" value="新增用户" onclick="javascript:window.location.href='{:U('Usr/add')}';" />
+                <input type="button" class="button button-small border-blue" value="回收站" onclick="javascript:window.location.href='{:U('Usr/recycle')}'" />
+            </div>
+
+            <table class="table table-hover">
+                <tr>
+                    <th width="80">用户编号</th>
+                    <th width="110">用户名称</th>
+                    <th width="110">真实姓名</th>
+                    <th width="110">用户性别</th>
+                    <th width="120">联系方式</th>
+                    <th width="*">邮件地址</th>
+                    <th width="140">用户组</th>
+                    <th width="180">操作</th>
+                </tr>
+                <volist name="usrList" id="index">
+                <tr>
+                    <td>{$index.adminId}</td>
+                    <td>{$index.adminName}</td>
+                    <td>{$index.adminRealName}</td>
+                    <td>
+                        <?php echo $index['adminSex'] == 1 ? '男' : '女'; ?>
+                    </td>
+                    <td>{$index.adminPhone}</td>
+                    <td>{$index.Email}</td>
+                    <td>
+                        <?php echo $index['state'] == 1 ? '系统管理员' : '系统管理员'; ?>
+                    </td>
+                    <td>
+                        <input type="hidden" name="id" value="{$index.adminId}"/>
+                        <a class="button border-yellow button-little dialogs" name="check" href="#" data-toggle="click" data-target="#checkdialog" data-mask="1" data-width="30%">查看</a>
+                        <a class="button border-blue button-little" name="reset" href="#">重置密码</a>
+                        <a class="button border-green button-little dialogs" name="delete" href="#" data-toggle="click" data-target="#mydialog" data-mask="1" data-width="30%">删除</a>
+                    </td>
+                </tr>
+                </volist>
+            </table>
+            <div class="panel-foot text-center">
+                page
+            </div>
+        </div>
+        </form>
+        <br />
+        <p class="text-right text-gray">基于<a class="text-gray" target="_blank" href="#">郑少卓</a>构建   </p>
+    </div>
+
+    <div id="checkdialog"> 
+        <div class="dialog"> 
+            <div class="dialog-head"> 
+                <span class="close rotate-hover"></span> 
+                <strong>用户详情</strong> 
+            </div> 
+            <div class="dialog-body">
+                <div class="form-group">
+                    <p>用户编号：  <a class="adminId" href="#"></a></p>
+                    <p>用户账号：  <a class="adminName" href="#"></a></p>
+                    <p>真实姓名：  <a class="adminRealName" href="#"></a></p>
+                    <p>用户性别：  <a class="adminSex" href="#"></a></p>
+                    <p>用户年龄：  <a class="adminAge" href="#"></a></p>
+                    <p>联系方式：  <a class="adminPhone" href="#"></a></p>
+                    <p>邮箱地址：  <a class="adminEmail" href="#"></a></p>
+                    <p>家庭住址：  <a class="adminAddress" href="#"></a></p>
+                </div>
+            </div> 
+        </div> 
+    </div>
+
+    <div id="mydialog"> 
+        <div class="dialog"> 
+            <div class="dialog-head"> 
+                <span class="close rotate-hover"></span> 
+                <strong>用户操作</strong> 
+            </div> 
+            <div class="dialog-body">
+                <div class="form-group">
+                    <p>是否确认要删除该用户？</p>
+                    <p>O(∩_∩)O~~(为可恢复删除)</p>
+                </div>
+        
+                <input type="button" class="button bg-main" value="删了吧" onclick="javascript:recycle();" />
+                <button class="button bg-yellow" type="reset">反悔了</button>
+            </div> 
+        </div> 
+    </div>
+
+    <script>
+        var ID = null;
+        function recycle(){
+            window.location.href = "{:U('Usr/toRecycle/id/" + ID +"')}";
+        }
+        $(function(){
+            $(".table a[name='check']").click(function(){
+                ID = $(this).parent().find("input[name='id']").val();
+               
+                $.ajax({
+                    url: "{:U('Usr/checkDetail')}",
+                    data: {
+                        id: ID,
+                    },
+                    type: 'post',
+                    dataType: 'json',
+                    success: function(data){
+                        if(data.state == true){
+                            for(var x in data.detail){
+                                if(x == 'adminSex'){
+                                    $(".dialog ." + x + "").html(data.detail[x] == 1 ? '男' : '女');
+                                }else{
+                                    $(".dialog ." + x + "").html(data.detail[x]);
+                                }
+                            }
+                        }else{
+                            return ;
+                        }
+                    }
+                }); 
+            });
+
+            $(".table a[name='reset']").click(function(){
+                var id = $(this).parent().find("input[name='id']").val();
+                window.location.href = "{:U('Usr/reset/id/" + id +"')}";
+            });
+
+            $(".table a[name='delete']").click(function(){
+                var id = $(this).parent().find("input[name='id']").val();
+                ID = id;
+            });
+
+        });
+    </script>

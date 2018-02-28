@@ -1,0 +1,135 @@
+
+    <div class="admin">
+        <form method="post">
+        <div class="panel admin-panel">
+            <div class="panel-head"><strong>内容列表</strong></div>
+            <div class="padding border-bottom">
+                <input type="button" class="button button-small checkall" name="checkall" checkfor="id" value="全选" />
+                <input type="button" class="button button-small border-yellow dialogs" value="批量恢复" name="recoversallbtn" href="#" data-toggle="click" data-target="#recoverdialog" data-mask="1" data-width="30%" />
+                <input type="button" class="button button-small border-blue dialogs" value="批量清除" name="clearsallbtn" href="#" data-toggle="click" data-target="#cleardialog" data-mask="1" data-width="30%" />
+                <div id="recoversdialog"> 
+                    <div class="dialog"> 
+                        <div class="dialog-head"> 
+                            <span class="close rotate-hover"></span> 
+                            <strong>用户批量恢复</strong> 
+                        </div> 
+                        <div class="dialog-body">
+                            <p>是否确认要恢复以选中用户？</p>
+                            <p>O(∩_∩)O~~(大不了再删除)</p>
+
+                            <input type="button" class="button bg-main" value="全恢复" onclick="javascript:recoverall();" />
+                        </div> 
+                    </div> 
+                </div>
+                <div id="clearsdialog"> 
+                    <div class="dialog"> 
+                        <div class="dialog-head"> 
+                            <span class="close rotate-hover"></span> 
+                            <strong>用户批量清除</strong> 
+                        </div> 
+                        <div class="dialog-body">
+                            <p>是否确认要清除以选中用户？</p>
+                            <p>:( (为不可恢复删除)</p>
+
+                            <input type="button" class="button bg-main" value="全清除" onclick="javascript:clearall();" />
+                        </div> 
+                    </div> 
+                </div>
+            </div>
+            <table class="table table-hover">
+                <tr>
+                    <th width="45">选择</th>
+                    <th width="110">用户名称</th>
+                    <th width="110">真实姓名</th>
+                    <th width="110">用户性别</th>
+                    <th width="120">联系方式</th>
+                    <th width="*">邮件地址</th>
+                    <th width="140">用户组</th>
+                    <th width="180">操作</th>
+                </tr>
+                <volist name="usrList" id="index">
+                <tr>
+                    <td>
+                        <input type="checkbox" name="id" value="{$index.adminId}" />
+                    </td>
+                    <td>{$index.adminName}</td>
+                    <td>{$index.adminRealName}</td>
+                    <td>
+                        <?php echo $index['adminSex'] == 1 ? '男' : '女'; ?>
+                    </td>
+                    <td>{$index.adminPhone}</td>
+                    <td>{$index.Email}</td>
+                    <td>
+                        <?php echo $index['state'] == 1 ? '系统管理员' : '系统管理员'; ?>
+                    </td>
+                    <td>
+                        <input name='adminid' type="hidden" value="{$index.adminId}" />
+                        <a class="button border-blue button-little dialogs" name="recover" href="#" data-toggle="click" data-target="#recoverdialog" data-mask="1" data-width="30%">恢复</a>
+                        <a class="button border-yellow button-little dialogs" name="clear" href="#" data-toggle="click" data-target="#cleardialog" data-mask="1" data-width="30%">清除</a>
+                    </td>
+                </tr>
+                </volist>
+                </table>
+            <div class="panel-foot text-center">
+                page上
+            </div>
+        </div>
+        </form>
+        <br />
+        <p class="text-right text-gray">基于<a class="text-gray" target="_blank" href="#">郑少卓</a>构建   </p>
+    </div>
+    <div id="cleardialog"> 
+        <div class="dialog"> 
+            <div class="dialog-head"> 
+                <span class="close rotate-hover"></span> 
+                <strong>用户操作</strong> 
+            </div> 
+            <div class="dialog-body">
+                <div class="form-group">
+                    <p>是否确认要清除该用户？</p>
+                    <p>O__O"…~~(删了就没了)</p>
+                </div>
+        
+                <input type="button" class="button bg-main" value="残忍的删除" onclick="javascript:clearr();" />
+                <button class="button bg-yellow" type="reset">愉快的拒绝</button>
+            </div> 
+        </div> 
+    </div>
+    <div id="recoverdialog"> 
+        <div class="dialog"> 
+            <div class="dialog-head"> 
+                <span class="close rotate-hover"></span> 
+                <strong>用户操作</strong> 
+            </div> 
+            <div class="dialog-body">
+                <div class="form-group">
+                    <p>是否确认要恢复该用户？</p>
+                    <p>O(∩_∩)O~~(可以考虑考虑)</p>
+                </div>
+        
+                <input type="button" class="button bg-main" value="那就恢复吧" onclick="javascript:recover();" />
+                <button class="button bg-yellow" type="reset">再考虑考虑</button>
+            </div> 
+        </div> 
+    </div>
+
+    <script>
+        var ID = null;
+        function recover(){
+            window.location.href = "{:U('Usr/recoverOne/id/" + ID + "')}";
+        }
+
+        function clearr(){
+            window.location.href = "{:U('Usr/clearOne/id/" + ID + "')}";
+        }
+
+        $(function(){
+            $(".table a[name='recover']").click(function(){
+                ID = $(this).parent().find("input[name='adminid']").val();
+            });
+
+            $(".table a[name='clear']").click(function(){
+                ID = $(this).parent().find("input[name='adminid']").val();
+            });
+        });
+    </script>
