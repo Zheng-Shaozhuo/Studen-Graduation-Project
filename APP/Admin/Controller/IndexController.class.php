@@ -11,11 +11,15 @@ class IndexController extends Controller {
      *  用户登录处理
      */
     public function doLogin(){
-    	$usrname = I("post.usrname");
-    	$usrpwd = I("post.usrpwd");
+    	$where['adminName'] = I("post.usrname");
+    	$where['adminPwd'] = md5(I("post.usrpwd"));
 
-    	if($usrname == "admin" && $usrpwd == "admin"){
+        $obj = M("admin");
+        $info = $obj->field("adminRealName, state")->where($where)->find();
+    	if(is_array($info) && isset($info)){
     		session("flag", true);
+            session("NAME", $info['adminRealName']);
+            session("state", $info['state']);
 
     		$this->redirect("Admin/index");
     	}else{
