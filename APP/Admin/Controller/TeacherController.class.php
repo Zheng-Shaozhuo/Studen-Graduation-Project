@@ -10,16 +10,40 @@
          *  2015年3月8日22:11:36
          *  后台管理中心-教师列表
          */
-        public function index(){
+        public function index($thrCard = null, $thrName = null, $thrSex = null, $thrMajor = null){
             $titles = array();
             $titles['prt'] = "教师";
             $titles['prtLink'] = CONTROLLER_NAME;
             $titles['son'] = "教师列表";
             $this->assign("titles", $titles);
 
-            $obj = M('teacher');
-            $usrList = $obj->field('thrId, thrName, thrRealName, thrSex, thrStudy, thrPhone')->where(array('state' => 1))->select();
-            $this->assign('usrList', $usrList);
+            $obj = M("major");
+            $majorList = $obj->select();
+            $this->assign("majorList", $majorList);
+
+            $where = array();
+            $where['state'] = 1;
+            $seachData['thrCard'] = $thrCard;
+            if(isset($thrCard) && !empty($thrCard)){
+                $where['thrName'] = array("like", "%{$thrCard}%");
+            }
+            $seachData['thrName'] = $thrName;
+            if(isset($thrName) && !empty($thrName)){
+                $where['thrRealName'] = $thrName;
+            }
+            $seachData['thrSex'] = $thrSex;
+            if(isset($thrSex) && !empty($thrSex)){
+                $where['thrSex'] = $thrSex;
+            }
+            $this->assign("seachData", $seachData);
+            
+            $obj    = M('teacher'); // 实例化User对象
+            $count  = $obj->where($where)->Count();// 查询满足要求的总记录数
+            $Page   = new \Think\Page($count,10);// 实例化分页类 传入总记录数和每页显示的记录数(25)
+            $show   = $Page->show();// 分页显示输出// 进行分页数据查询 注意limit方法的参数要使用Page类的属性
+            $usrList = $obj->field('thrId, thrName, thrRealName, thrSex, thrStudy, thrPhone')->where($where)->limit($Page->firstRow.','.$Page->listRows)->select();
+            $this->assign('usrList', $usrList);// 赋值数据集
+            $this->assign('page',$show);// 赋值分页输出
 
             $this->display();
         }
