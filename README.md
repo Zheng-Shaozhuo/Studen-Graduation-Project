@@ -45,8 +45,8 @@ RBAC（Role-Based Access Control）基于角色的访问控制，系统权限与
 3.2.3 管理员界面  
 后台管理员界面设计布局为组合导航（横向导航栏为各一级栏目，侧边栏导航为相应一级栏目下的子栏目）、面包屑导航及页面内容构成，选中一级、二级栏目的背景色异于未选中背景色，面包屑导航当前栏目不可操作，可直接返回值父级栏目，页面为响应式布局，如图所示，为超级管理员成功登录后页面。  
 ![超级管理员成功登录图](https://github.com/Zheng-Shaozhuo/github-readme.md-resource/blob/master/Studen-Graduation-Project/imgs/chaojiguanliyuanchenggongdenglutu.png)  
-3.3 数据库设计
-3.3.1 数据库实体关系图
+3.3 数据库设计  
+3.3.1 数据库实体关系图  
 根据系统的需求分析，毕业论文选题系统数据实体关系图，如图所示：  
 ![数据库实体关系ER图](https://github.com/Zheng-Shaozhuo/github-readme.md-resource/blob/master/Studen-Graduation-Project/imgs/shujukuertu.jpg)  
 3.3.2 数据库约束关系图  
