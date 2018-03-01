@@ -56,64 +56,66 @@ RBAC（Role-Based Access Control）基于角色的访问控制，系统权限与
 该系统应用了的数据表有，管理员表、学生表、教师表、课题信息表、消息表、权限表、专业表、课题进度表、选题表，以下对各表做一简单概述：
 1、管理员表与权限表相关联构成具有不同管理权限的管理员角色，该表设计包括：编号、登陆账号、登陆密码等字段，如表所示：  
 管理员表  
-序号	列名	数据类型	主键	允许空值	备注
-1	adminId	int	是	否	主键ID
-2	adminName	Varchar(32)	否	否	登陆账号
-3	adminPwd	Varchar(32)	否	否	登录密码
-4	adminRealName	Varchar(32)	否	是	真实姓名
-5	adminSex	Tinyint	否	是	用户性别
-6	adminAge	Tinyint	否	是	用户年龄
-7	adminPhone	Varchar(11)	否	是	联系方式
-8	adminEmail	Varchar(32)	否	是	邮件地址
-9	adminAddress	Varchar(256)	否	是	住址
-10	createTime	Varchar(12)	否	否	创建时间
-11	updateTime	Varchar(12)	否	否	更新时间
-12	state	Tinyint	否	否	权限组
+序号	列名	数据类型	主键	允许空值	备注  
+1	adminId	int	是	否	主键ID  
+2	adminName	Varchar(32)	否	否	登陆账号  
+3	adminPwd	Varchar(32)	否	否	登录密码  
+4	adminRealName	Varchar(32)	否	是	真实姓名  
+5	adminSex	Tinyint	否	是	用户性别  
+6	adminAge	Tinyint	否	是	用户年龄  
+7	adminPhone	Varchar(11)	否	是	联系方式  
+8	adminEmail	Varchar(32)	否	是	邮件地址  
+9	adminAddress	Varchar(256)	否	是	住址  
+10	createTime	Varchar(12)	否	否	创建时间  
+11	updateTime	Varchar(12)	否	否	更新时间  
+12	state	Tinyint	否	否	权限组  
 2、学生表主要用来存储学生的个人信息以及学业相关信息，与专业表相关联可获取学生专业信息，该表设计包括：编号、登陆账号、登陆密码等字段，如表所示：  
 学生表  
-序号	列名	数据类型	主键	允许空值	备注
-1	stuId	int	是	否	主键ID
-2	stuCard	Varchar(32)	否	否	登陆账号
-3	stuPwd	Varchar(32)	否	否	登录密码
-4	stuRealName	Varchar(32)	否	是	真实姓名
-5	stuSex	Tinyint	否	是	用户性别
-6	stuAge	Tinyint	否	是	用户年龄
-7	stuPhone	Varchar(11)	否	是	联系方式
-8	stuEmail	Varchar(32)	否	是	邮件地址
-9	stuMajor	Tinyint	否	是	专业信息
-10	createTime	Varchar(12)	否	否	创建时间
-11	updateTime	Varchar(12)	否	否	更新时间
-12	state	Tinyint	否	否	
+序号	列名	数据类型	主键	允许空值	备注  
+1	stuId	int	是	否	主键ID  
+2	stuCard	Varchar(32)	否	否	登陆账号   
+3	stuPwd	Varchar(32)	否	否	登录密码  
+4	stuRealName	Varchar(32)	否	是	真实姓名  
+5	stuSex	Tinyint	否	是	用户性别  
+6	stuAge	Tinyint	否	是	用户年龄  
+7	stuPhone	Varchar(11)	否	是	联系方式  
+8	stuEmail	Varchar(32)	否	是	邮件地址  
+9	stuMajor	Tinyint	否	是	专业信息  
+10	createTime	Varchar(12)	否	否	创建时间  
+11	updateTime	Varchar(12)	否	否	更新时间  
+12	state	Tinyint	否	否	  
 3、教师表主要用来存储教师的个人信息，与课题信息表相关联，该表设计包括：编号、登陆账号、登陆密码等字段，如表所示：  
 学生表  
-序号	列名	数据类型	主键	允许空值	备注
-1	thrId	int	是	否	主键ID
-2	thrName	Varchar(32)	否	否	登陆账号
-3	thrPwd	Varchar(32)	否	否	登录密码
-4	thrRealName	Varchar(32)	否	是	真实姓名
-5	thrSex	Tinyint	否	是	用户性别
-6	thrAge	Tinyint	否	是	用户年龄
-7	thrStudy	Varchar(128)	否	是	研究方向
-8	thrPhone	Varchar(11)	否	是	联系方式
-9	thrEmail	Varchar(32)	否	是	邮件地址
-10	thrAddress	Varchar(256)	否	是	办公地址
-11	showState	Char(4)	否	是	可选显示
-12	createTime	Varchar(12)	否	否	创建时间
-13	updateTime	Varchar(12)	否	否	更新时间
-14	state	Tinyint	否	否	
+序号	列名	数据类型	主键	允许空值	备注  
+1	thrId	int	是	否	主键ID  
+2	thrName	Varchar(32)	否	否	登陆账号  
+3	thrPwd	Varchar(32)	否	否	登录密码  
+4	thrRealName	Varchar(32)	否	是	真实姓名  
+5	thrSex	Tinyint	否	是	用户性别  
+6	thrAge	Tinyint	否	是	用户年龄  
+7	thrStudy	Varchar(128)	否	是	研究方向  
+8	thrPhone	Varchar(11)	否	是	联系方式  
+9	thrEmail	Varchar(32)	否	是	邮件地址  
+10	thrAddress	Varchar(256)	否	是	办公地址  
+11	showState	Char(4)	否	是	可选显示  
+12	createTime	Varchar(12)	否	否	创建时间  
+13	updateTime	Varchar(12)	否	否	更新时间  
+14	state	Tinyint	否	否	  
 4、课题表主要用来存储课题相关信息，与教师表相关联，该表设计包括：编号、教师ID、课题标题等字段，如表所示：  
 课题表  
-序号	列名	数据类型	主键	允许空值	备注
-1	gpId	int	是	否	主键ID
-2	gpThrId	int	否	否	教师ID
-3	gpTitle	Varchar(128)	否	否	课题标题
-4	gpContent	Varchar(512)	否	否	课题内容
-5	gpAim	Varchar(128)	否	否	课题目的
-6	gpRequest	Varchar(128)	否	否	课题要求
-7	gpMust	Varchar(128)	否	否	必备知识
-8	gpFormal	Varchar(128)	否	否	提交形式
-9	gpOthers	Varchar(512)	否	是	其他
-10	gpSHState	tinyint	否	否	软/硬件
-11	createTime	Varchar(12)	否	否	创建时间
-12	updateTime	Varchar(12)	否	否	更新时间
-13	state	Tinyint	否	否	课题状态
+序号	列名	数据类型	主键	允许空值	备注  
+1	gpId	int	是	否	主键ID  
+2	gpThrId	int	否	否	教师ID  
+3	gpTitle	Varchar(128)	否	否	课题标题  
+4	gpContent	Varchar(512)	否	否	课题内容  
+5	gpAim	Varchar(128)	否	否	课题目的  
+6	gpRequest	Varchar(128)	否	否	课题要求  
+7	gpMust	Varchar(128)	否	否	必备知识  
+8	gpFormal	Varchar(128)	否	否	提交形式  
+9	gpOthers	Varchar(512)	否	是	其他  
+10	gpSHState	tinyint	否	否	软/硬件  
+11	createTime	Varchar(12)	否	否	创建时间  
+12	updateTime	Varchar(12)	否	否	更新时间  
+13	state	Tinyint	否	否	课题状态  
+
+##### 其他表结构请自行查看sql脚本
